@@ -16,7 +16,13 @@
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        // Для поддержки import/export
+        "plugin:import/recommended",
+        // Стайл гайд AirBnB
+        "airbnb-typescript/base",
+        // Настройки для Prettier
+        "plugin:prettier/recommended"
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
