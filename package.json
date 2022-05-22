@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --browsers=Headless --no-watch",
+    "test:coverage": "ng test --browsers=Headless --no-watch --code-coverage",
     "lint": "ng lint",
     "prepare": "husky install"
   },
