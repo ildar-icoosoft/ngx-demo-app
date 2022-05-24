@@ -119,6 +119,6 @@
   },
   "defaultProject": "ngx-demo-app",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@ngrx/schematics"
   }
 }

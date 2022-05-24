@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { Post } from '../../../../../core/types/models/post';
 
 @Component({
   selector: 'app-post-list-table',
@@ -9,4 +10,6 @@ import { faSortUp } from '@fortawesome/free-solid-svg-icons';
 })
 export class PostListTableComponent {
   faSortUp = faSortUp;
+
+  @Input() items: Post[] = [];
 }

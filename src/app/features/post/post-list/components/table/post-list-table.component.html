@@ -11,23 +11,11 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <th scope="row" class="fw-normal">1</th>
-    <td>User 1</td>
-    <td>some title</td>
-    <td>some content some content some content...</td>
-  </tr>
-  <tr>
-    <th scope="row" class="fw-normal">2</th>
-    <td>User 2</td>
-    <td>some title</td>
-    <td>some content some content some content...</td>
-  </tr>
-  <tr>
-    <th scope="row" class="fw-normal">3</th>
-    <td>User 3</td>
-    <td>some title</td>
-    <td>some content some content some content...</td>
+  <tr *ngFor="let item of items">
+    <th scope="row" class="fw-normal">{{item.id}}</th>
+    <td><ng-container *ngIf="item.user">{{item.user.name}}</ng-container></td>
+    <td>{{item.title}}</td>
+    <td>{{item.body}}</td>
   </tr>
   </tbody>
 </table>

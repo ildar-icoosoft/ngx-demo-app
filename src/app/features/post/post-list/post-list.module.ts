@@ -6,6 +6,8 @@ import { PostListFilterComponent } from './components/filter/post-list-filter.co
 import { PostListFilterContainerComponent } from './components/filter/container/post-list-filter-container.component';
 import { PostListPageComponent } from './components/page/post-list-page.component';
 import { PostListTableComponent } from './components/table/post-list-table.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromPostList from './ngrx-store/post-list.reducer';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,11 @@ import { PostListTableComponent } from './components/table/post-list-table.compo
     PostListPageComponent,
     PostListTableComponent,
   ],
-  imports: [CommonModule, PostListRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    PostListRoutingModule,
+    SharedModule,
+    StoreModule.forFeature(fromPostList.postListFeatureKey, fromPostList.reducer),
+  ],
 })
 export class PostListModule {}
