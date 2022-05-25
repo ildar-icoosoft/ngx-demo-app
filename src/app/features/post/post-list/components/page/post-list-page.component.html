@@ -2,7 +2,7 @@
   <app-breadcrumbs [items]="breadcrumbs"></app-breadcrumbs>
   <h2>Posts</h2>
   <app-post-list-filter-container class="d-block mb-2"></app-post-list-filter-container>
-  <app-post-list-table></app-post-list-table>
+  <app-post-list-table [items]="(items$ | async)!"></app-post-list-table>
 
   <ngb-pagination
     class="d-flex justify-content-center"

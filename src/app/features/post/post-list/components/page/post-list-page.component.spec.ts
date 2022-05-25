@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostListPageComponent } from './post-list-page.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('PostListPageComponent', () => {
   let component: PostListPageComponent;
@@ -9,6 +10,7 @@ describe('PostListPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PostListPageComponent],
+      providers: [provideMockStore({})],
     }).compileComponents();
   });
 
