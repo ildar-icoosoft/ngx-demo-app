@@ -8,9 +8,15 @@ export const postListFeatureKey = 'postList';
 export type PostListState = PageResult<number>;
 
 export const initialState: PostListState = {
-  currentPage: 1,
-  totalItems: 0,
-  totalPages: 0,
+  page: {
+    number: 1,
+    size: 5,
+  },
+  sort: {
+    field: 'id',
+    direction: 'asc',
+  },
+  totalCount: 0,
   items: [],
 };
 

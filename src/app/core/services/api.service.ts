@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PageResult } from '../types/pagination/page-result';
 import { Post } from '../types/models/post';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Pageable } from '../types/pagination/pageable';
 import { preparePost } from '../utils/prepare-data';
@@ -13,16 +13,36 @@ import { User } from '../types/models/user';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getPostListPage(data: Pageable): Observable<PageResult<Post>> {
-    return this.http.get<any>('https://jsonplaceholder.typicode.com/posts').pipe(
-      map((items) => ({
-        currentPage: 5,
-        totalItems: 5,
-        totalPages: 6,
-        items: items.map(preparePost),
-      })),
-    );
+  getPostListPage(pageable: Pageable): Observable<PageResult<Post>> {
+    const queryParams: Record<string, any> = {};
+    if (pageable.page) {
+      queryParams['_page'] = pageable.page.number;
+      queryParams['_limit'] = pageable.page.size;
+    }
+    if (pageable.sort) {
+      queryParams['_sort'] = pageable.sort.field;
+      queryParams['_order'] = pageable.sort.direction;
+    }
+
+    const queryParamsString = new HttpParams({ fromObject: queryParams }).toString();
+
+    return this.http
+      .get<any>('https://jsonplaceholder.typicode.com/posts?' + queryParamsString, {
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          const items = response.body;
+
+          const totalCount = Number(response.headers.get('x-total-count'));
+
+          return {
+            ...pageable,
+            totalCount,
+            items: items.map(preparePost),
+          };
+        }),
+      );
   }
 
   getUsers(): Observable<User[]> {

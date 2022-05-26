@@ -1,13 +1,12 @@
 <table class="table table-bordered">
   <thead>
   <tr>
-    <th scope="col">
-      ID
-      <fa-icon [icon]="faSortUp" [fixedWidth]="true"></fa-icon>
+    <th scope="col" *ngFor="let col of columns" (click)="sortBy(col.id)">
+      {{col.title}}
+      <ng-container *ngIf="sorting?.field === col.id">
+        <fa-icon [icon]="sorting?.direction === 'asc' ? faSortUp : faSortDown" [fixedWidth]="true"></fa-icon>
+      </ng-container>
     </th>
-    <th scope="col">User</th>
-    <th scope="col">Title</th>
-    <th scope="col">Content</th>
   </tr>
   </thead>
   <tbody>
