@@ -14,6 +14,7 @@ import * as userActions from '../../../../../core/ngrx-store/actions/user.action
 import { Pageable, PageableSortField } from '../../../../../core/types/pagination/pageable';
 import { selectIsActionInProcess } from '../../../../../core/ngrx-store/selectors/current-actions.selectors';
 import { GET_POSTS } from '../../../../../core/ngrx-store/actions/post.actions';
+import { postListInitialPageable } from '../../ngrx-store/post-list.reducer';
 
 @Component({
   selector: 'app-post-list-page',
@@ -43,10 +44,8 @@ export class PostListPageComponent implements OnInit {
 
   constructor(private store: Store<State>) {}
 
-  async ngOnInit(): Promise<void> {
-    const pageable = await firstValueFrom(this.pageable$);
-
-    this.store.dispatch(new postActions.GetPosts(pageable));
+  ngOnInit(): void {
+    this.store.dispatch(new postActions.GetPosts(postListInitialPageable));
     this.store.dispatch(new userActions.GetUsers());
   }
 

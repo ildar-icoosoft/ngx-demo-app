@@ -9,6 +9,7 @@ import { select, Store } from '@ngrx/store';
 import { State } from '../../../../../../core/ngrx-store/reducers';
 import { PageableFilterField } from '../../../../../../core/types/pagination/pageable';
 import * as postActions from '../../../../../../core/ngrx-store/actions/post.actions';
+import { postListInitialPageable } from '../../../ngrx-store/post-list.reducer';
 
 @Component({
   selector: 'app-post-list-filter-container',
@@ -26,6 +27,7 @@ export class PostListFilterContainerComponent {
     this.store.dispatch(
       new postActions.GetPosts({
         ...pageable,
+        page: postListInitialPageable.page,
         filter,
       }),
     );
