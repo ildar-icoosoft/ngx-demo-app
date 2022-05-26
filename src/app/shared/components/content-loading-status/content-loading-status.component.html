@@ -1,0 +1,27 @@
+<ng-container *ngIf="isEmpty && !isLoading && !error && showEmptyContentMessage">
+  <div
+    class="alert alert-warning text-center"
+    role="alert"
+    data-testid="empty-content-message"
+  >
+    {{emptyContentMessage}}
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isLoading && isEmpty">
+  <div class="text-center">
+    <fa-icon [icon]="faSpinner" [pulse]="true" role="status" data-testid="loading-spinner">
+      <span class="sr-only">Loading...</span>
+    </fa-icon>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="error">
+  <div
+    class="alert alert-danger text-center"
+    role="alert"
+    data-testid="error-message"
+  >
+    {{error}}
+  </div>
+</ng-container>

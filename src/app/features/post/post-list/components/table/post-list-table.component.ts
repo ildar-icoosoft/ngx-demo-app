@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { Post } from '../../../../../core/types/models/post';
-import { PageableSortField } from '../../../../../core/types/pagination/pageable';
+import { Pageable, PageableSortField } from '../../../../../core/types/pagination/pageable';
 
 @Component({
   selector: 'app-post-list-table',
@@ -35,15 +35,21 @@ export class PostListTableComponent {
 
   @Input() items: Post[] = [];
 
-  @Input() sorting: PageableSortField | null = null;
+  @Input() pageable: Pageable = {};
+
+  @Input() loadInProcess = true;
+
+  @Input() totalCount = 0;
 
   @Output() sort = new EventEmitter<PageableSortField>();
 
+  @Output() pageChange = new EventEmitter<number>();
+
   sortBy(colId: string): void {
-    if (this.sorting?.field === colId) {
+    if (this.pageable.sort?.field === colId) {
       this.sort.emit({
-        field: this.sorting.field,
-        direction: this.sorting.direction === 'asc' ? 'desc' : 'asc',
+        field: this.pageable.sort.field,
+        direction: this.pageable.sort.direction === 'asc' ? 'desc' : 'asc',
       });
     } else {
       this.sort.emit({

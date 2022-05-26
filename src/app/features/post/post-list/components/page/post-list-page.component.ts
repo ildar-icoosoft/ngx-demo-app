@@ -12,6 +12,8 @@ import { firstValueFrom, Observable } from 'rxjs';
 import { Post } from '../../../../../core/types/models/post';
 import * as userActions from '../../../../../core/ngrx-store/actions/user.actions';
 import { Pageable, PageableSortField } from '../../../../../core/types/pagination/pageable';
+import { selectIsActionInProcess } from '../../../../../core/ngrx-store/selectors/current-actions.selectors';
+import { GET_POSTS } from '../../../../../core/ngrx-store/actions/post.actions';
 
 @Component({
   selector: 'app-post-list-page',
@@ -36,6 +38,8 @@ export class PostListPageComponent implements OnInit {
   items$: Observable<Post[]> = this.store.pipe(select(selectPostListItems));
 
   pageable$: Observable<Pageable> = this.store.pipe(select(selectPostListPageable));
+
+  loadInProcess$: Observable<boolean> = this.store.pipe(select(selectIsActionInProcess(GET_POSTS)));
 
   constructor(private store: Store<State>) {}
 

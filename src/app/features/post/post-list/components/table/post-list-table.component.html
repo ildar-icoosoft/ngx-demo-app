@@ -1,20 +1,38 @@
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th scope="col" *ngFor="let col of columns" (click)="sortBy(col.id)">
-      {{col.title}}
-      <ng-container *ngIf="sorting?.field === col.id">
-        <fa-icon [icon]="sorting?.direction === 'asc' ? faSortUp : faSortDown" [fixedWidth]="true"></fa-icon>
-      </ng-container>
-    </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item of items">
-    <th scope="row" class="fw-normal">{{item.id}}</th>
-    <td><ng-container *ngIf="item.user">{{item.user.name}}</ng-container></td>
-    <td>{{item.title}}</td>
-    <td>{{item.body}}</td>
-  </tr>
-  </tbody>
-</table>
+<app-content-loading-status
+  [isEmpty]="!items.length"
+  [isLoading]="loadInProcess"
+></app-content-loading-status>
+
+<ng-container *ngIf="items.length">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col" *ngFor="let col of columns" (click)="sortBy(col.id)">
+        {{col.title}}
+        <ng-container *ngIf="pageable.sort?.field === col.id">
+          <fa-icon [icon]="pageable.sort?.direction === 'asc' ? faSortUp : faSortDown" [fixedWidth]="true"></fa-icon>
+        </ng-container>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items">
+      <th scope="row" class="fw-normal">{{item.id}}</th>
+      <td><ng-container *ngIf="item.user">{{item.user.name}}</ng-container></td>
+      <td>{{item.title}}</td>
+      <td>{{item.body}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ngb-pagination
+    class="d-flex justify-content-center"
+    [page]="pageable.page?.number || 1"
+    [pageSize]="pageable.page?.size || 0"
+    [collectionSize]="totalCount"
+    (pageChange)="pageChange.emit($event)">
+    <ng-template ngbPaginationPrevious>Prev</ng-template>
+    <ng-template ngbPaginationNext>Next</ng-template>
+  </ngb-pagination>
+</ng-container>
+
