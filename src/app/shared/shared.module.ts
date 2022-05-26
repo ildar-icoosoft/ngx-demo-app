@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContentLoadingStatusComponent } from './components/content-loading-status/content-loading-status.component';
 
 @NgModule({
-  declarations: [BreadcrumbsComponent],
+  declarations: [BreadcrumbsComponent, ContentLoadingStatusComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     NgbPaginationModule,
     FontAwesomeModule,
+    ContentLoadingStatusComponent,
   ],
 })
 export class SharedModule {}
