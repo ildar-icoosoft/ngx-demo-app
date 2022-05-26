@@ -6,6 +6,9 @@ import { denormalize } from 'normalizr';
 import { postSchema } from '../../../../core/normalizr/schemas/post-schema';
 import { Pageable } from '../../../../core/types/pagination/pageable';
 import { omit } from 'lodash';
+import { userDropdownListFeatureKey, UserDropdownListState } from './user-dropdown-list.reducer';
+import { User } from '../../../../core/types/models/user';
+import { userSchema } from '../../../../core/normalizr/schemas/user-schema';
 
 export const selectPostListState = createFeatureSelector<PostListState>(postListFeatureKey);
 
@@ -24,3 +27,15 @@ export const selectPostListPageable = createSelector(selectPostListState, (state
 export const selectPostListTotalCount = createSelector(selectPostListState, (state): number => {
   return state.totalCount;
 });
+
+export const selectUserDropdownListState = createFeatureSelector<UserDropdownListState>(
+  userDropdownListFeatureKey,
+);
+
+export const selectUserDropdownList = createSelector(
+  selectUserDropdownListState,
+  selectEntities,
+  (state, entities): User[] => {
+    return denormalize(state, [userSchema], entities);
+  },
+);

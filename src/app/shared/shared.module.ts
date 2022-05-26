@@ -4,10 +4,25 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
 import { RouterModule } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [BreadcrumbsComponent],
-  imports: [CommonModule, RouterModule, NgbPaginationModule, FontAwesomeModule],
-  exports: [BreadcrumbsComponent, RouterModule, NgbPaginationModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbPaginationModule,
+    FontAwesomeModule,
+  ],
+  exports: [
+    BreadcrumbsComponent,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbPaginationModule,
+    FontAwesomeModule,
+  ],
 })
 export class SharedModule {}

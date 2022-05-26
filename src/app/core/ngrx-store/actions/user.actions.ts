@@ -19,7 +19,7 @@ export class GetUsers implements Action {
 export class GetUsersSuccess implements Action {
   readonly type = GET_USERS_SUCCESS;
 
-  constructor(public payload?: NormalizedData<number[]>) {}
+  constructor(public payload: NormalizedData<number[]>) {}
 }
 
 @EndOfAction(GET_USERS)

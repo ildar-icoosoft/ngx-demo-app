@@ -1,1 +1,4 @@
-<app-post-list-filter></app-post-list-filter>
+<app-post-list-filter
+  [users]="(users$ | async)!"
+  (changeFilter)="changeFilter($event)"
+></app-post-list-filter>
