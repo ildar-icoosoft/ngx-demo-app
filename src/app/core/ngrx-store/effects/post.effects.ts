@@ -13,8 +13,8 @@ export class PostEffects {
   getPosts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postActions.GET_POSTS),
-      switchMap(() =>
-        this.api.getPostListPage({}).pipe(
+      switchMap(({ payload }) =>
+        this.api.getPostListPage(payload).pipe(
           map((pageResult) => normalize(pageResult, postListSchema)),
           map((data: NormalizedData<PageResult<number>>) => new postActions.GetPostsSuccess(data)),
           catchError((error) => of(new postActions.GetPostsFailure(error))),

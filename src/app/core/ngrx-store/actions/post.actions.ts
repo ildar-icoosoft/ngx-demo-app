@@ -4,6 +4,7 @@ import { StartOfAction } from '../decorators/start-of-action';
 import { EndOfAction } from '../decorators/end-of-action';
 import NormalizedData from '../../normalizr/types/normalized-data';
 import { PageResult } from '../../types/pagination/page-result';
+import { Pageable } from '../../types/pagination/pageable';
 
 /* GetPosts */
 export const GET_POSTS = '[Post] GetPosts';
@@ -13,6 +14,8 @@ export const GET_POSTS_FAILURE = '[Post] GetPostsFailure';
 @StartOfAction()
 export class GetPosts implements Action {
   readonly type = GET_POSTS;
+
+  constructor(public payload: Pageable) {}
 }
 
 @EndOfAction(GET_POSTS)
@@ -20,7 +23,7 @@ export class GetPosts implements Action {
 export class GetPostsSuccess implements Action {
   readonly type = GET_POSTS_SUCCESS;
 
-  constructor(public payload?: NormalizedData<PageResult<number>>) {}
+  constructor(public payload: NormalizedData<PageResult<number>>) {}
 }
 
 @EndOfAction(GET_POSTS)

@@ -2,11 +2,19 @@
   <app-breadcrumbs [items]="breadcrumbs"></app-breadcrumbs>
   <h2>Posts</h2>
   <app-post-list-filter-container class="d-block mb-2"></app-post-list-filter-container>
-  <app-post-list-table [items]="(items$ | async)!"></app-post-list-table>
+  <app-post-list-table
+    [items]="(items$ | async)!"
+    [sorting]="$any((pageable$ | async)?.sort || null)"
+    (sort)="onSort($event)"
+  ></app-post-list-table>
 
   <ngb-pagination
     class="d-flex justify-content-center"
-    [(page)]="page"
-    [pageSize]="pageSize"
-    [collectionSize]="50"></ngb-pagination>
+    [page]="$any((pageable$ | async)?.page?.number)"
+    [pageSize]="$any((pageable$ | async)?.page?.size)"
+    [collectionSize]="(totalCount$ | async)!"
+    (pageChange)="onPageChange($event)">
+    <ng-template ngbPaginationPrevious>Prev</ng-template>
+    <ng-template ngbPaginationNext>Next</ng-template>
+  </ngb-pagination>
 </div>

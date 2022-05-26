@@ -3,10 +3,15 @@ import { Breadcrumb } from '../../../../../shared/components/breadcrumbs/breadcr
 import { select, Store } from '@ngrx/store';
 import * as postActions from '../../../../../core/ngrx-store/actions/post.actions';
 import { State } from '../../../../../core/ngrx-store/reducers';
-import { selectPostListItems } from '../../ngrx-store/post-list.selectors';
-import { Observable } from 'rxjs';
+import {
+  selectPostListItems,
+  selectPostListTotalCount,
+  selectPostListPageable,
+} from '../../ngrx-store/post-list.selectors';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Post } from '../../../../../core/types/models/post';
 import * as userActions from '../../../../../core/ngrx-store/actions/user.actions';
+import { Pageable, PageableSortField } from '../../../../../core/types/pagination/pageable';
 
 @Component({
   selector: 'app-post-list-page',
@@ -26,16 +31,43 @@ export class PostListPageComponent implements OnInit {
     },
   ];
 
-  page = 2;
-
-  pageSize = 10;
+  totalCount$: Observable<number> = this.store.pipe(select(selectPostListTotalCount));
 
   items$: Observable<Post[]> = this.store.pipe(select(selectPostListItems));
 
+  pageable$: Observable<Pageable> = this.store.pipe(select(selectPostListPageable));
+
   constructor(private store: Store<State>) {}
 
-  ngOnInit(): void {
-    this.store.dispatch(new postActions.GetPosts());
+  async ngOnInit(): Promise<void> {
+    const pageable = await firstValueFrom(this.pageable$);
+
+    this.store.dispatch(new postActions.GetPosts(pageable));
     this.store.dispatch(new userActions.GetUsers());
+  }
+
+  async onPageChange(pageNumber: number): Promise<void> {
+    const pageable = await firstValueFrom(this.pageable$);
+
+    this.store.dispatch(
+      new postActions.GetPosts({
+        ...pageable,
+        page: {
+          number: pageNumber,
+          size: pageable.page?.size || 0,
+        },
+      }),
+    );
+  }
+
+  async onSort(sort: PageableSortField): Promise<void> {
+    const pageable = await firstValueFrom(this.pageable$);
+
+    this.store.dispatch(
+      new postActions.GetPosts({
+        ...pageable,
+        sort,
+      }),
+    );
   }
 }

@@ -2,16 +2,16 @@ import { Pagination } from './pagination';
 
 export interface Pageable {
   page?: Pagination;
-  sort?: PageableSortFields[];
-  filter?: PageableFilterFields[];
+  sort?: PageableSortField;
+  filter?: PageableFilterField[];
 }
 
-export interface PageableSortFields {
+export interface PageableSortField {
   field: string;
   direction: 'asc' | 'desc';
 }
 
-export interface PageableFilterFields {
+export interface PageableFilterField {
   field: string;
   value: string;
 }
