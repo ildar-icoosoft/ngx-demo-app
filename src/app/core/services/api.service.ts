@@ -23,6 +23,11 @@ export class ApiService {
       queryParams['_sort'] = pageable.sort.field;
       queryParams['_order'] = pageable.sort.direction;
     }
+    if (pageable.filter) {
+      pageable.filter.forEach((filterItem) => {
+        queryParams[filterItem.field] = filterItem.value;
+      });
+    }
 
     const queryParamsString = new HttpParams({ fromObject: queryParams }).toString();
 
