@@ -8,6 +8,9 @@ import { AlbumListFilterComponent } from './components/filter/album-list-filter.
 import { SharedModule } from '../../../shared/shared.module';
 import { AlbumListFilterContainerComponent } from './components/filter/container/album-list-filter-container.component';
 import { AlbumListItemComponent } from './components/list-item/album-list-item.component';
+import { NgxsModule } from '@ngxs/store';
+import { AlbumListState } from './ngxs-store/album-list.state';
+import { UserDropdownListState } from './ngxs-store/user-dropdown-list.state';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,11 @@ import { AlbumListItemComponent } from './components/list-item/album-list-item.c
     AlbumListFilterContainerComponent,
     AlbumListItemComponent,
   ],
-  imports: [CommonModule, AlbumListRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    AlbumListRoutingModule,
+    SharedModule,
+    NgxsModule.forFeature([AlbumListState, UserDropdownListState]),
+  ],
 })
 export class AlbumListModule {}

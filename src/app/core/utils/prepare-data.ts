@@ -5,3 +5,9 @@ export const preparePost = (post: any) => {
   delete post.userId;
   return post;
 };
+
+export const prepareAlbum = (album: any) => {
+  album.user = album.userId;
+  delete album.userId;
+  return album;
+};
