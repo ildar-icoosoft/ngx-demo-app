@@ -1,8 +1,8 @@
 import * as entityActions from '../actions/entity.actions';
-import { PayloadAction } from '../types/payload-action';
-import { Entities } from '../../normalizr/types/entites';
 import { NormalizedUserEntity } from '../../normalizr/types/models/normalized-user-entity';
 import { NormalizedPostEntity } from '../../normalizr/types/models/normalized-post-entity';
+import { Action } from '@ngrx/store';
+import { EntityAction } from '../actions/entity.actions';
 
 export const entitiesFeatureKey = 'entities';
 
@@ -17,14 +17,13 @@ export const initialState: EntitiesState = {
 };
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export function reducer(state = initialState, action: PayloadAction<any>): EntitiesState {
+export function reducer(state = initialState, action: Action): EntitiesState {
   switch (action.type) {
     case entityActions.GET_ENTITIES_SUCCESS:
-      const entities = action.payload as Partial<Entities>;
-
+      const getEntityAction = action as EntityAction;
       return {
-        users: Object.assign({}, state.users, entities['users']),
-        posts: Object.assign({}, state.posts, entities['posts']),
+        users: Object.assign({}, state.users, getEntityAction.entities['users']),
+        posts: Object.assign({}, state.posts, getEntityAction.entities['posts']),
       };
 
     default:
