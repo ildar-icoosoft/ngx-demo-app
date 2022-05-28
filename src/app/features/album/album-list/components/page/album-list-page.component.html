@@ -4,5 +4,9 @@
 
   <app-album-list-filter-container class="d-block mb-2"></app-album-list-filter-container>
 
-  <app-album-list></app-album-list>
+  <app-album-list
+    [albums]="(albums$ | async)!"
+    [hasMore]="(hasMore$ | async)!"
+    (loadMore)="loadMore()"
+  ></app-album-list>
 </div>

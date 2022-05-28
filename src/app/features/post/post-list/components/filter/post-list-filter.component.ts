@@ -31,7 +31,7 @@ export class PostListFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.group.valueChanges
-      .pipe(throttleTime(2000, asyncScheduler, { trailing: true }), untilDestroyed(this))
+      .pipe(throttleTime(1000, asyncScheduler, { trailing: true }), untilDestroyed(this))
       .subscribe((value) => {
         const filter: PageableFilterField[] = [];
         if (value.q) {

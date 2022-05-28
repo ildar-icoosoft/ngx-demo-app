@@ -1,1 +1,4 @@
-<app-album-list-filter></app-album-list-filter>
+<app-album-list-filter
+  [users]="(users$ | async)!"
+  (changeFilter)="changeFilter($event)"
+></app-album-list-filter>

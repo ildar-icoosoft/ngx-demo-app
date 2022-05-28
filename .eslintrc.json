@@ -3,6 +3,9 @@
   "ignorePatterns": [
     "projects/**/*"
   ],
+  "settings": {
+    "import/core-modules": [ "@ngxs/devtools-plugin" ]
+  },
   "overrides": [
     {
       "files": [

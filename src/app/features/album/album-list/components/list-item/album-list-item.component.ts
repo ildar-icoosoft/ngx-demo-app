@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Album } from '../../../../../core/types/models/album';
 
 @Component({
   selector: 'app-album-list-item',
@@ -6,4 +7,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./album-list-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AlbumListItemComponent {}
+export class AlbumListItemComponent {
+  @Input() album?: Album;
+}

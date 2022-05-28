@@ -1,6 +1,6 @@
-<div class="card text-center">
+<div class="card text-center" *ngIf="album">
   <div class="card-header">
-    quidem molestiae enim
+    {{album.title}}
   </div>
   <div class="card-body">
     <div class="album-photos d-flex">
@@ -10,7 +10,7 @@
       <img src="https://via.placeholder.com/150/29fe9f" alt="">
     </div>
   </div>
-  <div class="card-footer text-muted">
-    By User 1
+  <div class="card-footer text-muted" *ngIf="album.user">
+    By {{album.user.name}}
   </div>
 </div>

@@ -23,7 +23,6 @@ export function reducer(state = initialState, action: PayloadAction<any>): Entit
       const entities = action.payload as Partial<Entities>;
 
       return {
-        ...state,
         users: Object.assign({}, state.users, entities['users']),
         posts: Object.assign({}, state.posts, entities['posts']),
       };
