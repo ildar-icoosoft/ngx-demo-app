@@ -6,15 +6,18 @@ import { State } from '../../../../../core/ngrx-store/reducers';
 import {
   selectPostListItems,
   selectPostListTotalCount,
-  selectPostListPageable,
+  selectPostListRequest,
 } from '../../ngrx-store/post-list.selectors';
 import { firstValueFrom, Observable } from 'rxjs';
 import { Post } from '../../../../../core/types/models/post';
 import * as userActions from '../../../../../core/ngrx-store/actions/user.actions';
-import { Pageable, PageableSortField } from '../../../../../core/types/pagination/pageable';
+import {
+  PageRequest,
+  PageRequestSortField,
+} from '../../../../../core/types/pagination/page-request';
 import { selectIsActionInProcess } from '../../../../../core/ngrx-store/selectors/current-actions.selectors';
 import { GET_POSTS } from '../../../../../core/ngrx-store/actions/post.actions';
-import { postListInitialPageable } from '../../ngrx-store/post-list.reducer';
+import { postListDefaultPageRequest } from '../../ngrx-store/post-list.reducer';
 
 @Component({
   selector: 'app-post-list-page',
@@ -38,37 +41,37 @@ export class PostListPageComponent implements OnInit {
 
   items$: Observable<Post[]> = this.store.pipe(select(selectPostListItems));
 
-  pageable$: Observable<Pageable> = this.store.pipe(select(selectPostListPageable));
+  currentListRequest$: Observable<PageRequest> = this.store.pipe(select(selectPostListRequest));
 
   loadInProcess$: Observable<boolean> = this.store.pipe(select(selectIsActionInProcess(GET_POSTS)));
 
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new postActions.GetPosts(postListInitialPageable));
+    this.store.dispatch(new postActions.GetPosts(postListDefaultPageRequest));
     this.store.dispatch(new userActions.GetUsers());
   }
 
   async onPageChange(pageNumber: number): Promise<void> {
-    const pageable = await firstValueFrom(this.pageable$);
+    const currentListRequest = await firstValueFrom(this.currentListRequest$);
 
     this.store.dispatch(
       new postActions.GetPosts({
-        ...pageable,
+        ...currentListRequest,
         page: {
           number: pageNumber,
-          size: pageable.page?.size || 0,
+          size: currentListRequest.page?.size || 0,
         },
       }),
     );
   }
 
-  async onSort(sort: PageableSortField): Promise<void> {
-    const pageable = await firstValueFrom(this.pageable$);
+  async onSort(sort: PageRequestSortField): Promise<void> {
+    const currentListRequest = await firstValueFrom(this.currentListRequest$);
 
     this.store.dispatch(
       new postActions.GetPosts({
-        ...pageable,
+        ...currentListRequest,
         sort,
       }),
     );

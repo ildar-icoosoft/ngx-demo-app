@@ -4,9 +4,8 @@ import { selectEntities } from '../../../../core/ngrx-store/selectors/entities.s
 import { Post } from '../../../../core/types/models/post';
 import { denormalize } from 'normalizr';
 import { postSchema } from '../../../../core/normalizr/schemas/post-schema';
-import { Pageable } from '../../../../core/types/pagination/pageable';
-import { omit } from 'lodash';
-import { userDropdownListFeatureKey, UserDropdownListState } from './user-dropdown-list.reducer';
+import { PageRequest } from '../../../../core/types/pagination/page-request';
+import { userListFeatureKey, UserListState } from './user-list.reducer';
 import { User } from '../../../../core/types/models/user';
 import { userSchema } from '../../../../core/normalizr/schemas/user-schema';
 
@@ -20,20 +19,18 @@ export const selectPostListItems = createSelector(
   },
 );
 
-export const selectPostListPageable = createSelector(selectPostListState, (state): Pageable => {
-  return omit(state, ['items', 'totalCount']);
+export const selectPostListRequest = createSelector(selectPostListState, (state): PageRequest => {
+  return state.pageRequest;
 });
 
 export const selectPostListTotalCount = createSelector(selectPostListState, (state): number => {
   return state.totalCount;
 });
 
-export const selectUserDropdownListState = createFeatureSelector<UserDropdownListState>(
-  userDropdownListFeatureKey,
-);
+export const selectUserListState = createFeatureSelector<UserListState>(userListFeatureKey);
 
-export const selectUserDropdownList = createSelector(
-  selectUserDropdownListState,
+export const selectUserList = createSelector(
+  selectUserListState,
   selectEntities,
   (state, entities): User[] => {
     return denormalize(state, [userSchema], entities);

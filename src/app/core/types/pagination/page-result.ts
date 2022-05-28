@@ -1,6 +1,7 @@
-import { Pageable } from './pageable';
+import { PageRequest } from './page-request';
 
-export type PageResult<T> = {
+export interface PageResult<T> {
+  pageRequest: PageRequest;
   totalCount: number;
   items: T[];
-} & Pageable;
+}

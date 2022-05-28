@@ -13,20 +13,20 @@ import {
 } from '../../../../core/ngxs-store/state/entities.state';
 import { User } from '../../../../core/types/models/user';
 
-export type UserDropdownListStateModel = number[];
+export type UserListStateModel = number[];
 
-@State<UserDropdownListStateModel>({
-  name: 'userDropdownList',
+@State<UserListStateModel>({
+  name: 'userList',
   defaults: [],
 })
 @Injectable()
-export class UserDropdownListState {
+export class UserListState {
   constructor(private api: ApiService) {}
 
   @Action(GetUsers)
-  getUsers(ctx: StateContext<UserDropdownListStateModel>) {
-    return this.api.getUsers().pipe(
-      map((result) => normalize(result, [userSchema])),
+  getUsers(ctx: StateContext<UserListStateModel>) {
+    return this.api.getUsers({}).pipe(
+      map((result) => normalize(result.items, [userSchema])),
       tap((data: NormalizedData<number[]>) => {
         ctx.setState(data.result);
       }),
@@ -35,7 +35,7 @@ export class UserDropdownListState {
   }
 
   @Selector([EntitiesState])
-  static items(state: UserDropdownListState, entities: EntitiesStateModel): User[] {
+  static items(state: UserListState, entities: EntitiesStateModel): User[] {
     return denormalize(state, [userSchema], entities).filter((item: User | undefined) => !!item);
   }
 }

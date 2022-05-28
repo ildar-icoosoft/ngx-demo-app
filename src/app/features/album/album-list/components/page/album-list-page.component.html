@@ -6,7 +6,7 @@
 
   <app-album-list
     [albums]="(albums$ | async)!"
-    [hasMore]="(hasMore$ | async)!"
+    [isLastPage]="(isLastPage$ | async)!"
     (loadMore)="loadMore()"
   ></app-album-list>
 </div>

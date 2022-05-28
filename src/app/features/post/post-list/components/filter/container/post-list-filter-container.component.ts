@@ -1,15 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
 import { User } from '../../../../../../core/types/models/user';
-import {
-  selectPostListPageable,
-  selectUserDropdownList,
-} from '../../../ngrx-store/post-list.selectors';
+import { selectPostListRequest, selectUserList } from '../../../ngrx-store/post-list.selectors';
 import { select, Store } from '@ngrx/store';
 import { State } from '../../../../../../core/ngrx-store/reducers';
-import { PageableFilterField } from '../../../../../../core/types/pagination/pageable';
+import { PageRequestFilterField } from '../../../../../../core/types/pagination/page-request';
 import * as postActions from '../../../../../../core/ngrx-store/actions/post.actions';
-import { postListInitialPageable } from '../../../ngrx-store/post-list.reducer';
+import { postListPageSize } from '../../../ngrx-store/post-list.reducer';
 
 @Component({
   selector: 'app-post-list-filter-container',
@@ -17,17 +14,20 @@ import { postListInitialPageable } from '../../../ngrx-store/post-list.reducer';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostListFilterContainerComponent {
-  users$: Observable<User[]> = this.store.pipe(select(selectUserDropdownList));
+  users$: Observable<User[]> = this.store.pipe(select(selectUserList));
 
   constructor(private store: Store<State>) {}
 
-  async changeFilter(filter: PageableFilterField[]): Promise<void> {
-    const pageable = await firstValueFrom(this.store.pipe(select(selectPostListPageable)));
+  async changeFilter(filter: PageRequestFilterField[]): Promise<void> {
+    const currentListRequest = await firstValueFrom(this.store.pipe(select(selectPostListRequest)));
 
     this.store.dispatch(
       new postActions.GetPosts({
-        ...pageable,
-        page: postListInitialPageable.page,
+        ...currentListRequest,
+        page: {
+          number: 1,
+          size: postListPageSize,
+        },
         filter,
       }),
     );

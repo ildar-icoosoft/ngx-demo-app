@@ -10,7 +10,7 @@ import { AlbumListFilterContainerComponent } from './components/filter/container
 import { AlbumListItemComponent } from './components/list-item/album-list-item.component';
 import { NgxsModule } from '@ngxs/store';
 import { AlbumListState } from './ngxs-store/album-list.state';
-import { UserDropdownListState } from './ngxs-store/user-dropdown-list.state';
+import { UserListState } from './ngxs-store/user-list.state';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { UserDropdownListState } from './ngxs-store/user-dropdown-list.state';
     CommonModule,
     AlbumListRoutingModule,
     SharedModule,
-    NgxsModule.forFeature([AlbumListState, UserDropdownListState]),
+    NgxsModule.forFeature([AlbumListState, UserListState]),
   ],
 })
 export class AlbumListModule {}
