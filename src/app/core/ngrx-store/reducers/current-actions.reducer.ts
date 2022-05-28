@@ -1,5 +1,10 @@
-import { PayloadAction } from '../types/payload-action';
-import { END_ACTION, START_ACTION } from '../actions/current-action.actions';
+import {
+  END_ACTION,
+  EndAction,
+  START_ACTION,
+  StartAction,
+} from '../actions/current-action.actions';
+import { Action } from '@ngrx/store';
 
 export const currentActionsFeatureKey = 'currentActions';
 
@@ -8,17 +13,15 @@ export type CurrentActionsState = string[];
 export const initialState: CurrentActionsState = [];
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export function reducer(state = initialState, action: PayloadAction<any>): string[] {
+export function reducer(state = initialState, action: Action): string[] {
   switch (action.type) {
     case START_ACTION:
-      const startActionType = action.payload as string;
-
-      return [...state, startActionType];
+      const startAction = action as StartAction;
+      return [...state, startAction.startActionType];
 
     case END_ACTION:
-      const endActionType = action.payload as string;
-
-      return state.filter((item) => item !== endActionType);
+      const endAction = action as EndAction;
+      return state.filter((item) => item !== endAction.endActionType);
 
     default:
       return state;

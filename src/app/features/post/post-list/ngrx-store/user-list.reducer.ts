@@ -1,7 +1,6 @@
-import { PayloadAction } from '../../../../core/ngrx-store/types/payload-action';
-import NormalizedData from '../../../../core/normalizr/types/normalized-data';
 import * as userActions from '../../../../core/ngrx-store/actions/user.actions';
-import { PageResult } from '../../../../core/types/pagination/page-result';
+import { GetUsersSuccess } from '../../../../core/ngrx-store/actions/user.actions';
+import { Action } from '@ngrx/store';
 
 export const userListFeatureKey = 'userList';
 
@@ -10,12 +9,12 @@ export type UserListState = number[];
 export const initialState: UserListState = [];
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export function reducer(state = initialState, action: PayloadAction<any>): UserListState {
+export function reducer(state = initialState, action: Action): UserListState {
   switch (action.type) {
     case userActions.GET_USERS_SUCCESS:
-      const data = action.payload as NormalizedData<PageResult<number>>;
+      const getUsersSuccessAction = action as GetUsersSuccess;
 
-      return data.result.items;
+      return getUsersSuccessAction.data.result.items;
 
     default:
       return state;

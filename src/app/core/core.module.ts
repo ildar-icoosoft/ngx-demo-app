@@ -5,7 +5,6 @@ import { reducers, metaReducers, State } from './ngrx-store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { PayloadAction } from './ngrx-store/types/payload-action';
 import { EntityEffects } from './ngrx-store/effects/entity.effects';
 import { CurrentActionEffects } from './ngrx-store/effects/current-action.effects';
 import { PostEffects } from './ngrx-store/effects/post.effects';
@@ -18,7 +17,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot<State, PayloadAction<any>>(reducers, { metaReducers }),
+    StoreModule.forRoot<State>(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([EntityEffects, CurrentActionEffects, PostEffects, UserEffects]),
     NgxsModule.forRoot([EntitiesState], {

@@ -7,14 +7,15 @@ import { postListSchema } from '../../normalizr/schemas/post-schema';
 import NormalizedData from '../../normalizr/types/normalized-data';
 import * as postActions from '../actions/post.actions';
 import { PageResult } from '../../types/pagination/page-result';
+import { GetPosts } from '../actions/post.actions';
 
 @Injectable()
 export class PostEffects {
   getPosts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(postActions.GET_POSTS),
-      switchMap(({ payload }) =>
-        this.api.getPostListPage(payload).pipe(
+      switchMap((action: GetPosts) =>
+        this.api.getPostListPage(action.pageRequest).pipe(
           map((pageResult) => normalize(pageResult, postListSchema)),
           map((data: NormalizedData<PageResult<number>>) => new postActions.GetPostsSuccess(data)),
           catchError((error) => of(new postActions.GetPostsFailure(error))),

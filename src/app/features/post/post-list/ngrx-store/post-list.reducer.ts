@@ -1,8 +1,8 @@
-import { PayloadAction } from '../../../../core/ngrx-store/types/payload-action';
 import * as postActions from '../../../../core/ngrx-store/actions/post.actions';
-import NormalizedData from '../../../../core/normalizr/types/normalized-data';
 import { PageResult } from '../../../../core/types/pagination/page-result';
 import { PageRequest } from '../../../../core/types/pagination/page-request';
+import { GetPostsSuccess } from '../../../../core/ngrx-store/actions/post.actions';
+import { Action } from '@ngrx/store';
 
 export const postListFeatureKey = 'postList';
 
@@ -28,12 +28,12 @@ export const postListInitialState: PostListState = {
 };
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export function reducer(state = postListInitialState, action: PayloadAction<any>): PostListState {
+export function reducer(state = postListInitialState, action: Action): PostListState {
   switch (action.type) {
     case postActions.GET_POSTS_SUCCESS:
-      const data = action.payload as NormalizedData<PageResult<number>>;
+      const getPostsSuccessAction = action as GetPostsSuccess;
 
-      return data.result;
+      return getPostsSuccessAction.data.result;
 
     default:
       return state;
