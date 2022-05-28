@@ -1,7 +1,7 @@
-import { PageableFilterField } from '../../types/pagination/pageable';
+import { PageRequest } from '../../types/pagination/page-request';
 
 export class GetAlbums {
   static readonly type = '[Album] GetAlbums';
 
-  constructor(public start: number, public limit: number, public filter: PageableFilterField[]) {}
+  constructor(public pageRequest: PageRequest) {}
 }

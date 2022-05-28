@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { PageResult } from '../types/pagination/page-result';
 import { Post } from '../types/models/post';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { Pageable, PageableFilterField } from '../types/pagination/pageable';
+import { PageRequest } from '../types/pagination/page-request';
 import { prepareAlbum, preparePost } from '../utils/prepare-data';
-import { User } from '../types/models/user';
-import { InfiniteScrollResult } from '../types/infinite-scroll/infinite-scroll-result';
 import { Album } from '../types/models/album';
+import { pageRequestToString } from '../utils/url';
 
 @Injectable({
   providedIn: 'root',
@@ -15,75 +14,49 @@ import { Album } from '../types/models/album';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getPostListPage(pageable: Pageable): Observable<PageResult<Post>> {
-    const queryParams: Record<string, any> = {};
-    if (pageable.page) {
-      queryParams['_page'] = pageable.page.number;
-      queryParams['_limit'] = pageable.page.size;
-    }
-    if (pageable.sort) {
-      queryParams['_sort'] = pageable.sort.field;
-      queryParams['_order'] = pageable.sort.direction;
-    }
-    if (pageable.filter) {
-      pageable.filter.forEach((filterItem) => {
-        queryParams[filterItem.field] = filterItem.value;
-      });
-    }
-
-    const queryParamsString = new HttpParams({ fromObject: queryParams }).toString();
-
+  getPostListPage(pageRequest: PageRequest): Observable<PageResult<Post>> {
     return this.http
-      .get<any>('https://jsonplaceholder.typicode.com/posts?' + queryParamsString, {
+      .get<any>('https://jsonplaceholder.typicode.com/posts?' + pageRequestToString(pageRequest), {
         observe: 'response',
       })
       .pipe(
         map((response) => {
-          const items = response.body;
-
-          const totalCount = Number(response.headers.get('x-total-count'));
-
           return {
-            ...pageable,
-            totalCount,
-            items: items.map(preparePost),
+            pageRequest,
+            totalCount: Number(response.headers.get('x-total-count')),
+            items: response.body.map(preparePost),
           };
         }),
       );
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<any>('https://jsonplaceholder.typicode.com/users');
-  }
-
-  getAlbums(
-    start: number,
-    limit: number,
-    filter: PageableFilterField[],
-  ): Observable<InfiniteScrollResult<Album>> {
-    const queryParams: Record<string, any> = {
-      _start: start,
-      _limit: limit,
-    };
-    filter.forEach((filterItem) => {
-      queryParams[filterItem.field] = filterItem.value;
-    });
-
-    const queryParamsString = new HttpParams({ fromObject: queryParams }).toString();
-
+  getUsers(pageRequest: PageRequest): Observable<PageResult<Album>> {
     return this.http
-      .get<any>('https://jsonplaceholder.typicode.com/albums?' + queryParamsString, {
+      .get<any>('https://jsonplaceholder.typicode.com/users' + pageRequestToString(pageRequest), {
         observe: 'response',
       })
       .pipe(
         map((response) => {
-          const items = response.body;
-
-          const totalCount = Number(response.headers.get('x-total-count'));
-
           return {
-            hasMore: totalCount > start + limit,
-            items: items.map(prepareAlbum),
+            pageRequest,
+            totalCount: Number(response.headers.get('x-total-count')),
+            items: response.body,
+          };
+        }),
+      );
+  }
+
+  getAlbums(pageRequest: PageRequest): Observable<PageResult<Album>> {
+    return this.http
+      .get<any>('https://jsonplaceholder.typicode.com/albums?' + pageRequestToString(pageRequest), {
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          return {
+            pageRequest,
+            totalCount: Number(response.headers.get('x-total-count')),
+            items: response.body.map(prepareAlbum),
           };
         }),
       );

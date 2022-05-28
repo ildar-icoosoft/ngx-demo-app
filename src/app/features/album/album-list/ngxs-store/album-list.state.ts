@@ -6,30 +6,33 @@ import { map, mergeMap, tap } from 'rxjs';
 import { denormalize, normalize } from 'normalizr';
 import NormalizedData from '../../../../core/normalizr/types/normalized-data';
 import { albumListSchema, albumSchema } from '../../../../core/normalizr/schemas/album-schema';
-import { InfiniteScrollResult } from '../../../../core/types/infinite-scroll/infinite-scroll-result';
 import { GetEntities } from '../../../../core/ngxs-store/actions/entity.actions';
 import {
   EntitiesState,
   EntitiesStateModel,
 } from '../../../../core/ngxs-store/state/entities.state';
 import { Album } from '../../../../core/types/models/album';
-import { PageableFilterField } from '../../../../core/types/pagination/pageable';
 import { GetPhotos } from '../../../../core/ngxs-store/actions/photo.actions';
+import { PageResult } from '../../../../core/types/pagination/page-result';
+import { PageRequest } from '../../../../core/types/pagination/page-request';
 
-export interface AlbumListStateModel {
-  hasMore: boolean;
-  pageSize: number;
-  items: number[];
-  filter: PageableFilterField[];
-}
+export type AlbumListStateModel = PageResult<number>;
+
+export const albumListPageSize = 20;
+
+export const albumListDefaultPageRequest: PageRequest = {
+  page: {
+    number: 1,
+    size: albumListPageSize,
+  },
+};
 
 @State<AlbumListStateModel>({
   name: 'albumList',
   defaults: {
-    hasMore: true,
-    pageSize: 28,
+    pageRequest: albumListDefaultPageRequest,
+    totalCount: 0,
     items: [],
-    filter: [],
   },
 })
 @Injectable()
@@ -38,24 +41,26 @@ export class AlbumListState {
 
   @Action(GetAlbums)
   getAlbums(ctx: StateContext<AlbumListStateModel>, action: GetAlbums) {
-    return this.api.getAlbums(action.start, action.limit, action.filter).pipe(
+    return this.api.getAlbums(action.pageRequest).pipe(
       map((result) => normalize(result, albumListSchema)),
-      tap((data: NormalizedData<InfiniteScrollResult<number>>) => {
+      tap((data: NormalizedData<PageResult<number>>) => {
         const state = ctx.getState();
-        ctx.patchState({
-          filter: action.filter,
-          hasMore: data.result.hasMore,
-          items: action.start === 0 ? data.result.items : [...state.items, ...data.result.items],
+        ctx.setState({
+          ...data.result,
+          items:
+            action.pageRequest.page?.number === 1
+              ? data.result.items
+              : [...state.items, ...data.result.items],
         });
       }),
-      tap((data: NormalizedData<InfiniteScrollResult<number>>) => {
+      tap((data: NormalizedData<PageResult<number>>) => {
         ctx.dispatch(
-          new GetPhotos(
-            data.result.items.map((albumId) => ({ field: 'albumId', value: '' + albumId })),
-          ),
+          new GetPhotos({
+            filter: data.result.items.map((albumId) => ({ field: 'albumId', value: '' + albumId })),
+          }),
         );
       }),
-      mergeMap((data: NormalizedData<InfiniteScrollResult<number>>) =>
+      mergeMap((data: NormalizedData<PageResult<number>>) =>
         ctx.dispatch(new GetEntities(data.entities)),
       ),
     );
@@ -69,7 +74,7 @@ export class AlbumListState {
   }
 
   @Selector()
-  static hasMore(state: AlbumListStateModel): boolean {
-    return state.hasMore;
+  static isLastPage(state: AlbumListStateModel): boolean {
+    return state.totalCount === state.items.length;
   }
 }

@@ -9,8 +9,8 @@
     <tr>
       <th scope="col" *ngFor="let col of columns" (click)="sortBy(col.id)">
         {{col.title}}
-        <ng-container *ngIf="pageable.sort?.field === col.id">
-          <fa-icon [icon]="pageable.sort?.direction === 'asc' ? faSortUp : faSortDown" [fixedWidth]="true"></fa-icon>
+        <ng-container *ngIf="listRequest.sort?.field === col.id">
+          <fa-icon [icon]="listRequest.sort?.direction === 'asc' ? faSortUp : faSortDown" [fixedWidth]="true"></fa-icon>
         </ng-container>
       </th>
     </tr>
@@ -27,8 +27,8 @@
 
   <ngb-pagination
     class="d-flex justify-content-center"
-    [page]="pageable.page?.number || 1"
-    [pageSize]="pageable.page?.size || 0"
+    [page]="listRequest.page?.number || 1"
+    [pageSize]="listRequest.page?.size || 0"
     [collectionSize]="totalCount"
     (pageChange)="pageChange.emit($event)">
     <ng-template ngbPaginationPrevious>Prev</ng-template>

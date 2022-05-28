@@ -8,7 +8,7 @@
     [loadInProcess]="(loadInProcess$ | async)!"
     [items]="(items$ | async)!"
     [totalCount]="(totalCount$ | async)!"
-    [pageable]="(pageable$ | async)!"
+    [listRequest]="(currentListRequest$ | async)!"
     (sort)="onSort($event)"
     (pageChange)="onPageChange($event)"
   ></app-post-list-table>

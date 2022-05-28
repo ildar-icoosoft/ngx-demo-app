@@ -8,7 +8,7 @@ import { PostListPageComponent } from './components/page/post-list-page.componen
 import { PostListTableComponent } from './components/table/post-list-table.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromPostList from './ngrx-store/post-list.reducer';
-import * as fromUserDropdownList from './ngrx-store/user-dropdown-list.reducer';
+import * as fromUserList from './ngrx-store/user-list.reducer';
 
 @NgModule({
   declarations: [
@@ -22,10 +22,7 @@ import * as fromUserDropdownList from './ngrx-store/user-dropdown-list.reducer';
     PostListRoutingModule,
     SharedModule,
     StoreModule.forFeature(fromPostList.postListFeatureKey, fromPostList.reducer),
-    StoreModule.forFeature(
-      fromUserDropdownList.userDropdownListFeatureKey,
-      fromUserDropdownList.reducer,
-    ),
+    StoreModule.forFeature(fromUserList.userListFeatureKey, fromUserList.reducer),
   ],
 })
 export class PostListModule {}

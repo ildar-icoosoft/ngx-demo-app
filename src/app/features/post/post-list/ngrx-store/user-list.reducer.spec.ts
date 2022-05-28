@@ -1,6 +1,6 @@
-import { reducer, initialState } from './user-dropdown-list.reducer';
+import { reducer, initialState } from './user-list.reducer';
 
-describe('UserDropdownList Reducer', () => {
+describe('UserList Reducer', () => {
   describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;

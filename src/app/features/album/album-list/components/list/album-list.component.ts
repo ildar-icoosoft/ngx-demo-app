@@ -10,7 +10,7 @@ import { Album } from '../../../../../core/types/models/album';
 export class AlbumListComponent {
   @Input() albums: Album[] = [];
 
-  @Input() hasMore = false;
+  @Input() isLastPage = true;
 
   @Output() loadMore = new EventEmitter<void>();
 

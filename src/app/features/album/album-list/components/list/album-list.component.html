@@ -1,7 +1,7 @@
 <div class="album-list d-flex flex-wrap">
   <app-album-list-item [album]="album" *ngFor="let album of albums; trackBy: trackByAlbum"></app-album-list-item>
 </div>
-<div *ngIf="hasMore">
+<div *ngIf="!isLastPage">
   <button type="button" class="btn btn-primary" (click)="loadMore.emit()">MORE</button>
 </div>
 

@@ -1,10 +1,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../../../../../core/types/models/user';
-import { PageableFilterField } from '../../../../../../core/types/pagination/pageable';
+import {
+  PageRequest,
+  PageRequestFilterField,
+} from '../../../../../../core/types/pagination/page-request';
 import { Select, Store } from '@ngxs/store';
-import { UserDropdownListState } from '../../../ngxs-store/user-dropdown-list.state';
-import { AlbumListState, AlbumListStateModel } from '../../../ngxs-store/album-list.state';
+import { UserListState } from '../../../ngxs-store/user-list.state';
+import { albumListPageSize, AlbumListState } from '../../../ngxs-store/album-list.state';
 import { GetAlbums } from '../../../../../../core/ngxs-store/actions/album.actions';
 
 @Component({
@@ -14,15 +17,22 @@ import { GetAlbums } from '../../../../../../core/ngxs-store/actions/album.actio
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlbumListFilterContainerComponent {
-  @Select(UserDropdownListState.items) users$!: Observable<User[]>;
+  @Select(UserListState.items) users$!: Observable<User[]>;
 
   constructor(private store: Store) {}
 
-  changeFilter(filter: PageableFilterField[]): void {
-    const stateModel: AlbumListStateModel = this.store.selectSnapshot(AlbumListState);
+  changeFilter(filter: PageRequestFilterField[]): void {
+    const currentListRequest: PageRequest = this.store.selectSnapshot(AlbumListState).pageRequest;
 
-    const { pageSize } = stateModel;
-
-    this.store.dispatch(new GetAlbums(0, pageSize, filter));
+    this.store.dispatch(
+      new GetAlbums({
+        ...currentListRequest,
+        page: {
+          number: 1,
+          size: albumListPageSize,
+        },
+        filter,
+      }),
+    );
   }
 }

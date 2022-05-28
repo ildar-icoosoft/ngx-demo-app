@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { User } from '../../../../../core/types/models/user';
-import { PageableFilterField } from '../../../../../core/types/pagination/pageable';
+import { PageRequestFilterField } from '../../../../../core/types/pagination/page-request';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { throttleTime, asyncScheduler } from 'rxjs';
@@ -22,7 +22,7 @@ import { throttleTime, asyncScheduler } from 'rxjs';
 export class PostListFilterComponent implements OnInit {
   @Input() users: User[] = [];
 
-  @Output() changeFilter = new EventEmitter<PageableFilterField[]>();
+  @Output() changeFilter = new EventEmitter<PageRequestFilterField[]>();
 
   group = new FormGroup({
     q: new FormControl(''),
@@ -33,7 +33,7 @@ export class PostListFilterComponent implements OnInit {
     this.group.valueChanges
       .pipe(throttleTime(1000, asyncScheduler, { trailing: true }), untilDestroyed(this))
       .subscribe((value) => {
-        const filter: PageableFilterField[] = [];
+        const filter: PageRequestFilterField[] = [];
         if (value.q) {
           filter.push({
             field: 'q',
