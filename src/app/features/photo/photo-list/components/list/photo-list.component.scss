@@ -1,0 +1,7 @@
+.photo-list {
+  gap: 20px;
+
+  > * {
+    width: calc(16.66% - 20px * 5 / 6);
+  }
+}
