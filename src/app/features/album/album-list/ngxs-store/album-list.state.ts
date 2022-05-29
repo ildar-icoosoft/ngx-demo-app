@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { GetAlbums } from '../../../../core/ngxs-store/actions/album.actions';
-import { ApiService } from '../../../../core/services/api.service';
-import { map, mergeMap, tap } from 'rxjs';
-import { denormalize, normalize } from 'normalizr';
-import NormalizedData from '../../../../core/normalizr/types/normalized-data';
-import { albumListSchema, albumSchema } from '../../../../core/normalizr/schemas/album-schema';
-import { GetEntities } from '../../../../core/ngxs-store/actions/entity.actions';
+import { GetAlbumsSuccess } from '../../../../core/ngxs-store/actions/album.actions';
+import { denormalize } from 'normalizr';
+import { albumSchema } from '../../../../core/normalizr/schemas/album-schema';
 import {
   EntitiesState,
   EntitiesStateModel,
 } from '../../../../core/ngxs-store/state/entities.state';
 import { Album } from '../../../../core/types/models/album';
-import { GetPhotos } from '../../../../core/ngxs-store/actions/photo.actions';
 import { PageResult } from '../../../../core/types/pagination/page-result';
 import { PageRequest } from '../../../../core/types/pagination/page-request';
 
@@ -37,36 +32,27 @@ export const albumListDefaultPageRequest: PageRequest = {
 })
 @Injectable()
 export class AlbumListState {
-  constructor(private api: ApiService) {}
+  @Action(GetAlbumsSuccess)
+  getAlbums(ctx: StateContext<AlbumListStateModel>, action: GetAlbumsSuccess) {
+    const pageResult: PageResult<number> = action.data.result;
 
-  @Action(GetAlbums)
-  getAlbums(ctx: StateContext<AlbumListStateModel>, action: GetAlbums) {
-    return this.api.getAlbums(action.pageRequest).pipe(
-      map((result) => normalize(result, albumListSchema)),
-      tap((data: NormalizedData<PageResult<number>>) => {
-        const state = ctx.getState();
-        ctx.setState({
-          ...data.result,
-          items:
-            action.pageRequest.page?.number === 1
-              ? data.result.items
-              : [...state.items, ...data.result.items],
-        });
+    const state = ctx.getState();
+    ctx.setState({
+      ...pageResult,
+      items:
+        pageResult.pageRequest.page?.number === 1
+          ? pageResult.items
+          : [...state.items, ...pageResult.items],
+    });
+
+    /*ctx.dispatch(
+      new GetPhotos({
+        filter: data.result.items.map((albumId) => ({ field: 'albumId', value: '' + albumId })),
       }),
-      tap((data: NormalizedData<PageResult<number>>) => {
-        ctx.dispatch(
-          new GetPhotos({
-            filter: data.result.items.map((albumId) => ({ field: 'albumId', value: '' + albumId })),
-          }),
-        );
-      }),
-      mergeMap((data: NormalizedData<PageResult<number>>) =>
-        ctx.dispatch(new GetEntities(data.entities)),
-      ),
-    );
+    );*/
   }
 
-  @Selector([EntitiesState])
+  @Selector([AlbumListState, EntitiesState])
   static items(state: AlbumListStateModel, entities: EntitiesStateModel): Album[] {
     return denormalize(state.items, [albumSchema], entities).filter(
       (item: Album | undefined) => !!item,

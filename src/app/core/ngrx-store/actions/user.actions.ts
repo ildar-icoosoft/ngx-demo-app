@@ -9,7 +9,7 @@ import { ActionWithNormalizedData } from '../types/action-with-normalized-data';
 /* GetUsers */
 export const GET_USERS = '[User] GetUsers';
 export const GET_USERS_SUCCESS = '[User] GetUsersSuccess';
-export const GET_USERS_FAILURE = '[User] GetUsersFailure';
+export const GET_USERS_FAILED = '[User] GetUsersFailed';
 
 @StartOfAction()
 export class GetUsers implements Action {
@@ -25,10 +25,10 @@ export class GetUsersSuccess implements ActionWithNormalizedData {
 }
 
 @EndOfAction(GET_USERS)
-export class GetUsersFailure implements Action {
-  readonly type = GET_USERS_FAILURE;
+export class GetUsersFailed implements Action {
+  readonly type = GET_USERS_FAILED;
 
   constructor(public error: any) {}
 }
 
-export type UserAction = GetUsers | GetUsersSuccess | GetUsersFailure;
+export type UserAction = GetUsers | GetUsersSuccess | GetUsersFailed;

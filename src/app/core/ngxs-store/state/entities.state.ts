@@ -1,29 +1,40 @@
+import { Actions, State, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext } from '@ngxs/store';
+import { AlbumEntitiesState } from './album.state';
+import { UserEntitiesState } from './user.state';
+import { GetEntitiesSuccess } from '../actions/entity.actions';
+import { filter } from 'rxjs';
+import { ActionWithNormalizedData } from '../../ngrx-store/types/action-with-normalized-data';
+import { ActionStatus } from '../types/action-status';
+import { ActionContext } from '../types/action-context';
 import { NormalizedUserEntity } from '../../normalizr/types/models/normalized-user-entity';
-import { NormalizedAlbumEntity } from '../../normalizr/types/models/normalized-album-entity';
-import { GetEntities } from '../actions/entity.actions';
+import { NormalizedPostEntity } from '../../normalizr/types/models/normalized-post-entity';
 
-export interface EntitiesStateModel {
+export type EntitiesStateModel = {
   users: Record<string, NormalizedUserEntity>;
-  albums: Record<string, NormalizedAlbumEntity>;
-}
+  posts: Record<string, NormalizedPostEntity>;
+};
 
-@State<EntitiesStateModel>({
+// в generic не указываю EntitiesStateModel, т.к. тогда компилятор ругается на пустой defaults
+@State<{}>({
   name: 'entities',
-  defaults: {
-    users: {},
-    albums: {},
-  },
+  defaults: {},
+  children: [AlbumEntitiesState, UserEntitiesState],
 })
 @Injectable()
 export class EntitiesState {
-  @Action(GetEntities)
-  getEntities(ctx: StateContext<EntitiesStateModel>, action: GetEntities) {
-    const state = ctx.getState();
-    ctx.setState({
-      users: Object.assign({}, state.users, action.entities['users']),
-      albums: Object.assign({}, state.albums, action.entities['albums']),
-    });
+  constructor(private store: Store, private actions$: Actions) {
+    this.actions$
+      .pipe(
+        filter((actionContext: ActionContext) => {
+          return (
+            !!actionContext.action.containsNormalizedData &&
+            actionContext.status === ActionStatus.Successful
+          );
+        }),
+      )
+      .subscribe((actionContext: ActionContext<ActionWithNormalizedData>) => {
+        this.store.dispatch(new GetEntitiesSuccess(actionContext.action.data.entities));
+      });
   }
 }

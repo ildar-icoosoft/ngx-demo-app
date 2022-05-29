@@ -17,7 +17,7 @@ export class UserEffects {
         this.api.getUsers({}).pipe(
           map((pageResult) => normalize(pageResult, userListSchema)),
           map((data: NormalizedData<PageResult<number>>) => new userActions.GetUsersSuccess(data)),
-          catchError((error) => of(new userActions.GetUsersFailure(error))),
+          catchError((error) => of(new userActions.GetUsersFailed(error))),
         ),
       ),
     ),
