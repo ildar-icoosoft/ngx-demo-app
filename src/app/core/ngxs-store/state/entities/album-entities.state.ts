@@ -1,14 +1,14 @@
 import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { Observable, tap } from 'rxjs';
-import { PageResult } from '../../types/pagination/page-result';
+import { PageResult } from '../../../types/pagination/page-result';
 import { normalize } from 'normalizr';
-import { albumListSchema } from '../../normalizr/schemas/album-schema';
-import { NormalizedAlbumEntity } from '../../normalizr/types/models/normalized-album-entity';
-import NormalizedData from '../../normalizr/types/normalized-data';
-import { GetAlbums, GetAlbumsSuccess } from '../actions/album.actions';
-import { GetEntitiesSuccess } from '../actions/entity.actions';
+import { albumListSchema } from '../../../normalizr/schemas/album-schema';
+import { NormalizedAlbumEntity } from '../../../normalizr/types/models/normalized-album-entity';
+import NormalizedData from '../../../normalizr/types/normalized-data';
+import { GetAlbums, GetAlbumsSuccess } from '../../actions/album.actions';
+import { GetEntitiesSuccess } from '../../actions/entity.actions';
 
 export interface AlbumEntitiesStateModel {
   [id: string]: NormalizedAlbumEntity;

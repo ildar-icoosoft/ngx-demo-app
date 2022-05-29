@@ -7,6 +7,7 @@ import { albumListDefaultPageRequest, AlbumListState } from '../../ngxs-store/al
 import { Observable } from 'rxjs';
 import { Album } from '../../../../../core/types/models/album';
 import { PageRequest } from '../../../../../core/types/pagination/page-request';
+import { ActionsExecuting, actionsExecuting } from '@ngxs-labs/actions-executing';
 
 @Component({
   selector: 'app-album-list-page',
@@ -29,6 +30,9 @@ export class AlbumListPageComponent implements OnInit {
   @Select(AlbumListState.items) albums$!: Observable<Album[]>;
 
   @Select(AlbumListState.isLastPage) isLastPage$!: Observable<boolean>;
+
+  @Select(actionsExecuting([GetAlbums]))
+  loadInProcess$!: Observable<ActionsExecuting>;
 
   constructor(private store: Store) {}
 

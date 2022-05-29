@@ -1,18 +1,18 @@
 import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { NormalizedUserEntity } from '../../normalizr/types/models/normalized-user-entity';
-import { GetEntitiesSuccess } from '../actions/entity.actions';
-import { NormalizedAlbumEntity } from '../../normalizr/types/models/normalized-album-entity';
-import { AlbumEntitiesStateModel } from './album.state';
-import { GetAlbums } from '../actions/album.actions';
+import { NormalizedUserEntity } from '../../../normalizr/types/models/normalized-user-entity';
+import { GetEntitiesSuccess } from '../../actions/entity.actions';
+import { NormalizedAlbumEntity } from '../../../normalizr/types/models/normalized-album-entity';
+import { AlbumEntitiesStateModel } from './album-entities.state';
+import { GetAlbums } from '../../actions/album.actions';
 import { Observable, tap } from 'rxjs';
-import { PageResult } from '../../types/pagination/page-result';
-import NormalizedData from '../../normalizr/types/normalized-data';
+import { PageResult } from '../../../types/pagination/page-result';
+import NormalizedData from '../../../normalizr/types/normalized-data';
 import { normalize } from 'normalizr';
-import { GetUsers, GetUsersSuccess } from '../actions/user.actions';
-import { User } from '../../types/models/user';
-import { ApiService } from '../../services/api.service';
-import { userListSchema } from '../../normalizr/schemas/user-schema';
+import { GetUsers, GetUsersSuccess } from '../../actions/user.actions';
+import { User } from '../../../types/models/user';
+import { ApiService } from '../../../services/api.service';
+import { userListSchema } from '../../../normalizr/schemas/user-schema';
 
 export interface UserEntitiesStateModel {
   [id: string]: NormalizedUserEntity;

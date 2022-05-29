@@ -1,7 +1,21 @@
+<app-content-loading-status
+  [isEmpty]="!albums.length"
+  [isLoading]="!!loadInProcess"
+></app-content-loading-status>
+
 <div class="album-list d-flex flex-wrap">
   <app-album-list-item [album]="album" *ngFor="let album of albums; trackBy: trackByAlbum"></app-album-list-item>
 </div>
+
+<!-- Показываем нижний спиннер, когда подгружаются новые элементы бесконечным скроллом.
+ @todo В ngIf не совсем точное условие, т.к. оно будет срабатывать и при запросах на фильтрацию и сортировку, но для демо подойдёт -->
+<div class="text-center" *ngIf="!!loadInProcess && albums.length">
+  <fa-icon [icon]="faSpinner" [pulse]="true" role="status" data-testid="loading-spinner">
+    <span class="sr-only">Loading...</span>
+  </fa-icon>
+</div>
+
 <div *ngIf="!isLastPage">
-  <button type="button" class="btn btn-primary" (click)="loadMore.emit()">MORE</button>
+  <button type="button" class="btn btn-primary" (click)="loadMore.emit()" [disabled]="!!loadInProcess">MORE</button>
 </div>
 
