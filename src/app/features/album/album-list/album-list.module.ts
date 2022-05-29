@@ -11,6 +11,7 @@ import { AlbumListItemComponent } from './components/list-item/album-list-item.c
 import { NgxsModule } from '@ngxs/store';
 import { AlbumListState } from './ngxs-store/album-list.state';
 import { UserListState } from './ngxs-store/user-list.state';
+import { AlbumListPhotosState } from './ngxs-store/album-list-photos.state';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { UserListState } from './ngxs-store/user-list.state';
     CommonModule,
     AlbumListRoutingModule,
     SharedModule,
-    NgxsModule.forFeature([AlbumListState, UserListState]),
+    NgxsModule.forFeature([AlbumListState, UserListState, AlbumListPhotosState]),
   ],
 })
 export class AlbumListModule {}

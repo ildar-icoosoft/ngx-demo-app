@@ -3,11 +3,12 @@ import { PageResult } from '../types/pagination/page-result';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { PageRequest } from '../types/pagination/page-request';
-import { prepareAlbum, preparePost } from '../utils/prepare-data';
+import { prepareAlbum, preparePhoto, preparePost } from '../utils/prepare-data';
 import { pageRequestToString } from '../utils/url';
 import { NormalizedAlbumEntity } from '../normalizr/types/models/normalized-album-entity';
 import { NormalizedPostEntity } from '../normalizr/types/models/normalized-post-entity';
 import { User } from '../types/models/user';
+import { NormalizedPhotoEntity } from '../normalizr/types/models/normalized-photo-entity';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ import { User } from '../types/models/user';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getPostListPage(pageRequest: PageRequest): Observable<PageResult<NormalizedPostEntity>> {
+  getPosts(pageRequest: PageRequest): Observable<PageResult<NormalizedPostEntity>> {
     return this.http
       .get<any>('https://jsonplaceholder.typicode.com/posts?' + pageRequestToString(pageRequest), {
         observe: 'response',
@@ -58,6 +59,22 @@ export class ApiService {
             pageRequest,
             totalCount: Number(response.headers.get('x-total-count')),
             items: response.body.map(prepareAlbum),
+          };
+        }),
+      );
+  }
+
+  getPhotos(pageRequest: PageRequest): Observable<PageResult<NormalizedPhotoEntity>> {
+    return this.http
+      .get<any>('https://jsonplaceholder.typicode.com/photos?' + pageRequestToString(pageRequest), {
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          return {
+            pageRequest,
+            totalCount: Number(response.headers.get('x-total-count')),
+            items: response.body.map(preparePhoto),
           };
         }),
       );

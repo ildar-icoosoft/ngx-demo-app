@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from 
 import { Album } from '../../../../../core/types/models/album';
 import { ActionsExecuting } from '@ngxs-labs/actions-executing';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Photo } from '../../../../../core/types/models/photo';
 
 @Component({
   selector: 'app-album-list',
@@ -11,6 +12,8 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 })
 export class AlbumListComponent {
   @Input() albums: Album[] = [];
+
+  @Input() groupedPhotos: Record<string, Photo[]> = {};
 
   @Input() isLastPage = true;
 

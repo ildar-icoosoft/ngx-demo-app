@@ -15,11 +15,12 @@ export const pageRequestToString = (pageRequest: PageRequest): string => {
     queryParams['_sort'] = pageRequest.sort.field;
     queryParams['_order'] = pageRequest.sort.direction;
   }
+  let httpParams = new HttpParams({ fromObject: queryParams });
   if (pageRequest.filter) {
     pageRequest.filter.forEach((filterItem) => {
-      queryParams[filterItem.field] = filterItem.value;
+      httpParams = httpParams.append(filterItem.field, filterItem.value);
     });
   }
 
-  return new HttpParams({ fromObject: queryParams }).toString();
+  return httpParams.toString();
 };

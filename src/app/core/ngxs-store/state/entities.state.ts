@@ -9,17 +9,20 @@ import { ActionContext } from '../types/action-context';
 import { NormalizedUserEntity } from '../../normalizr/types/models/normalized-user-entity';
 import { NormalizedPostEntity } from '../../normalizr/types/models/normalized-post-entity';
 import { EntityActions } from '../actions/entity.actions';
+import { NormalizedPhotoEntity } from '../../normalizr/types/models/normalized-photo-entity';
+import { PhotoEntitiesState } from './entities/photo-entities.state';
 
 export type EntitiesStateModel = {
   users: Record<string, NormalizedUserEntity>;
   posts: Record<string, NormalizedPostEntity>;
+  photos: Record<string, NormalizedPhotoEntity>;
 };
 
 // в generic не указываю EntitiesStateModel, т.к. тогда компилятор ругается на пустой defaults
 @State<{}>({
   name: 'entities',
   defaults: {},
-  children: [AlbumEntitiesState, UserEntitiesState],
+  children: [AlbumEntitiesState, UserEntitiesState, PhotoEntitiesState],
 })
 @Injectable()
 export class EntitiesState {
