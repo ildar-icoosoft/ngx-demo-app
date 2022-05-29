@@ -5,3 +5,9 @@ export class GetEntities {
 
   constructor(public entities: Partial<Entities>) {}
 }
+
+export class GetEntitiesSuccess {
+  static readonly type = '[Entity] GetEntitiesSuccess';
+
+  constructor(public entities: Partial<Entities>) {}
+}

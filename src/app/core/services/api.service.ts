@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { PageResult } from '../types/pagination/page-result';
-import { Post } from '../types/models/post';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { PageRequest } from '../types/pagination/page-request';
 import { prepareAlbum, preparePost } from '../utils/prepare-data';
-import { Album } from '../types/models/album';
 import { pageRequestToString } from '../utils/url';
+import { NormalizedAlbumEntity } from '../normalizr/types/models/normalized-album-entity';
+import { NormalizedPostEntity } from '../normalizr/types/models/normalized-post-entity';
+import { User } from '../types/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ import { pageRequestToString } from '../utils/url';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getPostListPage(pageRequest: PageRequest): Observable<PageResult<Post>> {
+  getPostListPage(pageRequest: PageRequest): Observable<PageResult<NormalizedPostEntity>> {
     return this.http
       .get<any>('https://jsonplaceholder.typicode.com/posts?' + pageRequestToString(pageRequest), {
         observe: 'response',
@@ -30,7 +31,7 @@ export class ApiService {
       );
   }
 
-  getUsers(pageRequest: PageRequest): Observable<PageResult<Album>> {
+  getUsers(pageRequest: PageRequest): Observable<PageResult<User>> {
     return this.http
       .get<any>('https://jsonplaceholder.typicode.com/users' + pageRequestToString(pageRequest), {
         observe: 'response',
@@ -46,7 +47,7 @@ export class ApiService {
       );
   }
 
-  getAlbums(pageRequest: PageRequest): Observable<PageResult<Album>> {
+  getAlbums(pageRequest: PageRequest): Observable<PageResult<NormalizedAlbumEntity>> {
     return this.http
       .get<any>('https://jsonplaceholder.typicode.com/albums?' + pageRequestToString(pageRequest), {
         observe: 'response',

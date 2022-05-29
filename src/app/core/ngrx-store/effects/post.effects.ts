@@ -18,7 +18,7 @@ export class PostEffects {
         this.api.getPostListPage(action.pageRequest).pipe(
           map((pageResult) => normalize(pageResult, postListSchema)),
           map((data: NormalizedData<PageResult<number>>) => new postActions.GetPostsSuccess(data)),
-          catchError((error) => of(new postActions.GetPostsFailure(error))),
+          catchError((error) => of(new postActions.GetPostsFailed(error))),
         ),
       ),
     ),

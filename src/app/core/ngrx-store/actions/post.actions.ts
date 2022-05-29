@@ -10,7 +10,7 @@ import { ActionWithNormalizedData } from '../types/action-with-normalized-data';
 /* GetPosts */
 export const GET_POSTS = '[Post] GetPosts';
 export const GET_POSTS_SUCCESS = '[Post] GetPostsSuccess';
-export const GET_POSTS_FAILURE = '[Post] GetPostsFailure';
+export const GET_POSTS_FAILED = '[Post] GetPostsFailed';
 
 @StartOfAction()
 export class GetPosts implements Action {
@@ -28,10 +28,10 @@ export class GetPostsSuccess implements ActionWithNormalizedData {
 }
 
 @EndOfAction(GET_POSTS)
-export class GetPostsFailure implements Action {
-  readonly type = GET_POSTS_FAILURE;
+export class GetPostsFailed implements Action {
+  readonly type = GET_POSTS_FAILED;
 
   constructor(public error: any) {}
 }
 
-export type PostAction = GetPosts | GetPostsSuccess | GetPostsFailure;
+export type PostAction = GetPosts | GetPostsSuccess | GetPostsFailed;

@@ -12,6 +12,8 @@ import { UserEffects } from './ngrx-store/effects/user.effects';
 import { NgxsModule } from '@ngxs/store';
 import { EntitiesState } from './ngxs-store/state/entities.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { AlbumEntitiesState } from './ngxs-store/state/album.state';
+import { UserEntitiesState } from './ngxs-store/state/user.state';
 
 @NgModule({
   declarations: [],
@@ -20,8 +22,13 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     StoreModule.forRoot<State>(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([EntityEffects, CurrentActionEffects, PostEffects, UserEffects]),
-    NgxsModule.forRoot([EntitiesState], {
+    NgxsModule.forRoot([EntitiesState, AlbumEntitiesState, UserEntitiesState], {
       developmentMode: !environment.production,
+      selectorOptions: {
+        // Такие значения рекомендуются в документации. И они будут дефолтными в NGXS 4
+        suppressErrors: false,
+        injectContainerState: false,
+      },
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
