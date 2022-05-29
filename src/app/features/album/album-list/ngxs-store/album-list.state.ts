@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { GetAlbumsSuccess } from '../../../../core/ngxs-store/actions/album.actions';
 import { denormalize } from 'normalizr';
 import { albumSchema } from '../../../../core/normalizr/schemas/album-schema';
 import {
@@ -10,6 +9,7 @@ import {
 import { Album } from '../../../../core/types/models/album';
 import { PageResult } from '../../../../core/types/pagination/page-result';
 import { PageRequest } from '../../../../core/types/pagination/page-request';
+import { AlbumActions } from '../../../../core/ngxs-store/actions/album.actions';
 
 export type AlbumListStateModel = PageResult<number>;
 
@@ -32,8 +32,8 @@ export const albumListDefaultPageRequest: PageRequest = {
 })
 @Injectable()
 export class AlbumListState {
-  @Action(GetAlbumsSuccess)
-  getAlbums(ctx: StateContext<AlbumListStateModel>, action: GetAlbumsSuccess) {
+  @Action(AlbumActions.GetAlbumsSuccess)
+  getAlbums(ctx: StateContext<AlbumListStateModel>, action: AlbumActions.GetAlbumsSuccess) {
     const pageResult: PageResult<number> = action.data.result;
 
     const state = ctx.getState();

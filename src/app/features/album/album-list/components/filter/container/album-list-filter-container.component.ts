@@ -8,7 +8,7 @@ import {
 import { Select, Store } from '@ngxs/store';
 import { UserListState } from '../../../ngxs-store/user-list.state';
 import { albumListPageSize, AlbumListState } from '../../../ngxs-store/album-list.state';
-import { GetAlbums } from '../../../../../../core/ngxs-store/actions/album.actions';
+import { AlbumActions } from '../../../../../../core/ngxs-store/actions/album.actions';
 
 @Component({
   selector: 'app-album-list-filter-container',
@@ -25,7 +25,7 @@ export class AlbumListFilterContainerComponent {
     const currentListRequest: PageRequest = this.store.selectSnapshot(AlbumListState).pageRequest;
 
     this.store.dispatch(
-      new GetAlbums({
+      new AlbumActions.GetAlbums({
         ...currentListRequest,
         page: {
           number: 1,
