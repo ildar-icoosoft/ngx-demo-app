@@ -6,6 +6,7 @@
 
   <app-album-list
     [albums]="(albums$ | async)!"
+    [groupedPhotos]="(groupedPhotos$ | async)!"
     [isLastPage]="(isLastPage$ | async)!"
     [loadInProcess]="loadInProcess$ | async"
     (loadMore)="loadMore()"

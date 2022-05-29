@@ -15,6 +15,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { AlbumEntitiesState } from './ngxs-store/state/entities/album-entities.state';
 import { UserEntitiesState } from './ngxs-store/state/entities/user-entities.state';
 import { NgxsActionsExecutingModule } from '@ngxs-labs/actions-executing';
+import { PhotoEntitiesState } from './ngxs-store/state/entities/photo-entities.state';
 
 @NgModule({
   declarations: [],
@@ -23,7 +24,7 @@ import { NgxsActionsExecutingModule } from '@ngxs-labs/actions-executing';
     StoreModule.forRoot<State>(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([EntityEffects, CurrentActionEffects, PostEffects, UserEffects]),
-    NgxsModule.forRoot([EntitiesState, AlbumEntitiesState, UserEntitiesState], {
+    NgxsModule.forRoot([EntitiesState, AlbumEntitiesState, UserEntitiesState, PhotoEntitiesState], {
       developmentMode: !environment.production,
       selectorOptions: {
         // Такие значения рекомендуются в документации. И они будут дефолтными в NGXS 4

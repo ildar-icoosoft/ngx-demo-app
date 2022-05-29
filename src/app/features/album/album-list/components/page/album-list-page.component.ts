@@ -8,6 +8,8 @@ import { PageRequest } from '../../../../../core/types/pagination/page-request';
 import { ActionsExecuting, actionsExecuting } from '@ngxs-labs/actions-executing';
 import { AlbumActions } from '../../../../../core/ngxs-store/actions/album.actions';
 import { UserActions } from '../../../../../core/ngxs-store/actions/user.actions';
+import { AlbumListPhotosState } from '../../ngxs-store/album-list-photos.state';
+import { Photo } from '../../../../../core/types/models/photo';
 
 @Component({
   selector: 'app-album-list-page',
@@ -33,6 +35,8 @@ export class AlbumListPageComponent implements OnInit {
 
   @Select(actionsExecuting([AlbumActions.GetAlbums]))
   loadInProcess$!: Observable<ActionsExecuting>;
+
+  @Select(AlbumListPhotosState.groupedPhotos) groupedPhotos$!: Observable<Record<string, Photo[]>>;
 
   constructor(private store: Store) {}
 

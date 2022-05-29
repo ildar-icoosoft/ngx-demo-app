@@ -4,7 +4,10 @@
 ></app-content-loading-status>
 
 <div class="album-list d-flex flex-wrap" infiniteScroll [infiniteScrollDisabled]="isLastPage" (scrolled)="loadMore.emit()">
-  <app-album-list-item [album]="album" *ngFor="let album of albums; trackBy: trackByAlbum"></app-album-list-item>
+  <app-album-list-item [album]="album"
+                       [photos]="groupedPhotos[album.id] || []"
+                       *ngFor="let album of albums; trackBy: trackByAlbum"
+  ></app-album-list-item>
 </div>
 
 <!-- Показываем нижний спиннер, когда подгружаются новые элементы бесконечным скроллом.
