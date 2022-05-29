@@ -7,8 +7,8 @@ import { normalize } from 'normalizr';
 import { albumListSchema } from '../../../normalizr/schemas/album-schema';
 import { NormalizedAlbumEntity } from '../../../normalizr/types/models/normalized-album-entity';
 import NormalizedData from '../../../normalizr/types/normalized-data';
-import { GetAlbums, GetAlbumsSuccess } from '../../actions/album.actions';
-import { GetEntitiesSuccess } from '../../actions/entity.actions';
+import { EntityActions } from '../../actions/entity.actions';
+import { AlbumActions } from '../../actions/album.actions';
 
 export interface AlbumEntitiesStateModel {
   [id: string]: NormalizedAlbumEntity;
@@ -22,10 +22,10 @@ export interface AlbumEntitiesStateModel {
 export class AlbumEntitiesState {
   constructor(private api: ApiService) {}
 
-  @Action(GetAlbums)
+  @Action(AlbumActions.GetAlbums)
   getAlbums(
     ctx: StateContext<AlbumEntitiesStateModel>,
-    action: GetAlbums,
+    action: AlbumActions.GetAlbums,
   ): Observable<PageResult<NormalizedAlbumEntity>> {
     return this.api.getAlbums(action.pageRequest).pipe(
       tap((result: PageResult<NormalizedAlbumEntity>) => {
@@ -34,13 +34,16 @@ export class AlbumEntitiesState {
           albumListSchema,
         );
 
-        ctx.dispatch(new GetAlbumsSuccess(normalizedData));
+        ctx.dispatch(new AlbumActions.GetAlbumsSuccess(normalizedData));
       }),
     );
   }
 
-  @Action(GetEntitiesSuccess)
-  getEntitiesSuccess(ctx: StateContext<AlbumEntitiesStateModel>, action: GetEntitiesSuccess): void {
+  @Action(EntityActions.GetEntitiesSuccess)
+  getEntitiesSuccess(
+    ctx: StateContext<AlbumEntitiesStateModel>,
+    action: EntityActions.GetEntitiesSuccess,
+  ): void {
     if (action.entities['albums']) {
       ctx.setState({
         ...ctx.getState(),
