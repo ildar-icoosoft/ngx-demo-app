@@ -12,8 +12,9 @@ import { UserEffects } from './ngrx-store/effects/user.effects';
 import { NgxsModule } from '@ngxs/store';
 import { EntitiesState } from './ngxs-store/state/entities.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { AlbumEntitiesState } from './ngxs-store/state/album.state';
-import { UserEntitiesState } from './ngxs-store/state/user.state';
+import { AlbumEntitiesState } from './ngxs-store/state/entities/album-entities.state';
+import { UserEntitiesState } from './ngxs-store/state/entities/user-entities.state';
+import { NgxsActionsExecutingModule } from '@ngxs-labs/actions-executing';
 
 @NgModule({
   declarations: [],
@@ -31,6 +32,7 @@ import { UserEntitiesState } from './ngxs-store/state/user.state';
       },
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsActionsExecutingModule.forRoot(),
   ],
 })
 export class CoreModule {}

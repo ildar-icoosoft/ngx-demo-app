@@ -1,7 +1,7 @@
 import { Actions, State, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { AlbumEntitiesState } from './album.state';
-import { UserEntitiesState } from './user.state';
+import { AlbumEntitiesState } from './entities/album-entities.state';
+import { UserEntitiesState } from './entities/user-entities.state';
 import { GetEntitiesSuccess } from '../actions/entity.actions';
 import { filter } from 'rxjs';
 import { ActionWithNormalizedData } from '../../ngrx-store/types/action-with-normalized-data';
