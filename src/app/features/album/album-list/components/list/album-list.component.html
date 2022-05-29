@@ -3,7 +3,7 @@
   [isLoading]="!!loadInProcess"
 ></app-content-loading-status>
 
-<div class="album-list d-flex flex-wrap">
+<div class="album-list d-flex flex-wrap" infiniteScroll [infiniteScrollDisabled]="isLastPage" (scrolled)="loadMore.emit()">
   <app-album-list-item [album]="album" *ngFor="let album of albums; trackBy: trackByAlbum"></app-album-list-item>
 </div>
 
@@ -14,8 +14,3 @@
     <span class="sr-only">Loading...</span>
   </fa-icon>
 </div>
-
-<div *ngIf="!isLastPage">
-  <button type="button" class="btn btn-primary" (click)="loadMore.emit()" [disabled]="!!loadInProcess">MORE</button>
-</div>
-
