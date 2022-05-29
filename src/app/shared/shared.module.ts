@@ -6,6 +6,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentLoadingStatusComponent } from './components/content-loading-status/content-loading-status.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [BreadcrumbsComponent, ContentLoadingStatusComponent],
@@ -16,6 +17,7 @@ import { ContentLoadingStatusComponent } from './components/content-loading-stat
     ReactiveFormsModule,
     NgbPaginationModule,
     FontAwesomeModule,
+    InfiniteScrollModule,
   ],
   exports: [
     BreadcrumbsComponent,
@@ -25,6 +27,7 @@ import { ContentLoadingStatusComponent } from './components/content-loading-stat
     NgbPaginationModule,
     FontAwesomeModule,
     ContentLoadingStatusComponent,
+    InfiniteScrollModule,
   ],
 })
 export class SharedModule {}
