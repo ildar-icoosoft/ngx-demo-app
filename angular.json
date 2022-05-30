@@ -119,6 +119,6 @@
   },
   "defaultProject": "ngx-demo-app",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "defaultCollection": "@datorama/akita"
   }
 }

@@ -1,15 +1,6 @@
-<div class="photo-list d-flex flex-wrap">
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
-  <app-photo-list-item></app-photo-list-item>
+<div class="photo-list d-flex flex-wrap" infiniteScroll [infiniteScrollDisabled]="isLastPage" (scrolled)="loadMore.emit()">
+  <app-photo-list-item
+    *ngFor="let photo of photos; trackBy: trackByPhoto"
+    [photo]="photo"
+  ></app-photo-list-item>
 </div>

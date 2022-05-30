@@ -1,9 +1,9 @@
-<div class="card text-center">
+<div class="card text-center" *ngIf="photo">
   <div class="card-body">
-    <img src="https://via.placeholder.com/150/771796" alt="">
+    <img [src]="photo.thumbnailUrl" alt="">
   </div>
   <div class="card-footer text-muted">
-    quidem molestiae enim
+    {{photo.id}}. {{photo.title}}
     <div>
       View Album
     </div>

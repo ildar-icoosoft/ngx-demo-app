@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { NormalizedPhotoEntity } from '../../../../../core/normalizr/types/models/normalized-photo-entity';
 
 @Component({
   selector: 'app-photo-list-item',
@@ -6,4 +7,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./photo-list-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PhotoListItemComponent {}
+export class PhotoListItemComponent {
+  @Input() photo?: NormalizedPhotoEntity;
+}
