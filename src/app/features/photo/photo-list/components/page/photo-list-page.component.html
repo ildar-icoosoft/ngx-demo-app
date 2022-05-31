@@ -4,5 +4,9 @@
 
   <app-photo-list-filter-container class="d-block mb-2"></app-photo-list-filter-container>
 
-  <app-photo-list></app-photo-list>
+  <app-photo-list
+    [photos]="(photos$ | async)!"
+    [isLastPage]="(isLastPage$ | async)!"
+    (loadMore)="loadMore()"
+  ></app-photo-list>
 </div>

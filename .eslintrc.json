@@ -4,7 +4,7 @@
     "projects/**/*"
   ],
   "settings": {
-    "import/core-modules": [ "@ngxs/devtools-plugin" ]
+    "import/core-modules": [ "@ngxs/devtools-plugin", "@datorama/akita-ngdevtools" ]
   },
   "overrides": [
     {
