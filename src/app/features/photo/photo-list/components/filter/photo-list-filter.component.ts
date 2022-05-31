@@ -10,7 +10,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { PageRequestFilterField } from '../../../../../core/types/pagination/page-request';
 import { FormControl, FormGroup } from '@angular/forms';
 import { asyncScheduler, throttleTime } from 'rxjs';
-import { Album } from '../../../../../core/types/models/album';
+import { NormalizedAlbumEntity } from '../../../../../core/normalizr/types/models/normalized-album-entity';
 
 @UntilDestroy()
 @Component({
@@ -20,7 +20,7 @@ import { Album } from '../../../../../core/types/models/album';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhotoListFilterComponent implements OnInit {
-  @Input() albums: Album[] = [];
+  @Input() albums: NormalizedAlbumEntity[] = [];
 
   @Output() changeFilter = new EventEmitter<PageRequestFilterField[]>();
 
@@ -50,7 +50,7 @@ export class PhotoListFilterComponent implements OnInit {
       });
   }
 
-  trackByAlbum(index: number, album: Album): number {
+  trackByAlbum(index: number, album: NormalizedAlbumEntity): number {
     return album.id;
   }
 }

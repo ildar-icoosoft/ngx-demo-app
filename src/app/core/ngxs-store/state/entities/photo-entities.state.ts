@@ -9,6 +9,7 @@ import { EntityActions } from '../../actions/entity.actions';
 import { NormalizedPhotoEntity } from '../../../normalizr/types/models/normalized-photo-entity';
 import { PhotoActions } from '../../actions/photo.actions';
 import { photoListSchema } from '../../../normalizr/schemas/photo-schema';
+import { HashMap } from '../../../types/hash-map';
 
 export interface PhotoEntitiesStateModel {
   [id: string]: NormalizedPhotoEntity;
@@ -47,7 +48,7 @@ export class PhotoEntitiesState {
     if (action.entities['photos']) {
       ctx.setState({
         ...ctx.getState(),
-        ...(action.entities['photos'] as Record<string, NormalizedPhotoEntity>),
+        ...(action.entities['photos'] as HashMap<NormalizedPhotoEntity>),
       });
     }
   }

@@ -3,6 +3,7 @@ import { Album } from '../../../../../core/types/models/album';
 import { ActionsExecuting } from '@ngxs-labs/actions-executing';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Photo } from '../../../../../core/types/models/photo';
+import { HashMap } from '../../../../../core/types/hash-map';
 
 @Component({
   selector: 'app-album-list',
@@ -13,7 +14,7 @@ import { Photo } from '../../../../../core/types/models/photo';
 export class AlbumListComponent {
   @Input() albums: Album[] = [];
 
-  @Input() groupedPhotos: Record<string, Photo[]> = {};
+  @Input() groupedPhotos: HashMap<Photo[]> = {};
 
   @Input() isLastPage = true;
 

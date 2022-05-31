@@ -13,6 +13,7 @@ import { ApiService } from '../../../services/api.service';
 import { userListSchema } from '../../../normalizr/schemas/user-schema';
 import { AlbumActions } from '../../actions/album.actions';
 import { EntityActions } from '../../actions/entity.actions';
+import { HashMap } from '../../../types/hash-map';
 
 export interface UserEntitiesStateModel {
   [id: string]: NormalizedUserEntity;
@@ -51,7 +52,7 @@ export class UserEntitiesState {
     if (action.entities['users']) {
       ctx.setState({
         ...ctx.getState(),
-        ...(action.entities['users'] as Record<string, NormalizedAlbumEntity>),
+        ...(action.entities['users'] as HashMap<NormalizedAlbumEntity>),
       });
     }
   }

@@ -9,10 +9,9 @@ import { NormalizedAlbumEntity } from '../../../normalizr/types/models/normalize
 import NormalizedData from '../../../normalizr/types/normalized-data';
 import { EntityActions } from '../../actions/entity.actions';
 import { AlbumActions } from '../../actions/album.actions';
+import { HashMap } from '../../../types/hash-map';
 
-export interface AlbumEntitiesStateModel {
-  [id: string]: NormalizedAlbumEntity;
-}
+export type AlbumEntitiesStateModel = HashMap<NormalizedAlbumEntity>;
 
 @State<AlbumEntitiesStateModel>({
   name: 'albums',
@@ -47,7 +46,7 @@ export class AlbumEntitiesState {
     if (action.entities['albums']) {
       ctx.setState({
         ...ctx.getState(),
-        ...(action.entities['albums'] as Record<string, NormalizedAlbumEntity>),
+        ...(action.entities['albums'] as HashMap<NormalizedAlbumEntity>),
       });
     }
   }

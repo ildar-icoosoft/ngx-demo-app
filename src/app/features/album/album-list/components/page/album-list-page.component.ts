@@ -10,6 +10,7 @@ import { AlbumActions } from '../../../../../core/ngxs-store/actions/album.actio
 import { UserActions } from '../../../../../core/ngxs-store/actions/user.actions';
 import { AlbumListPhotosState } from '../../ngxs-store/album-list-photos.state';
 import { Photo } from '../../../../../core/types/models/photo';
+import { HashMap } from '../../../../../core/types/hash-map';
 
 @Component({
   selector: 'app-album-list-page',
@@ -36,7 +37,7 @@ export class AlbumListPageComponent implements OnInit {
   @Select(actionsExecuting([AlbumActions.GetAlbums]))
   loadInProcess$!: Observable<ActionsExecuting>;
 
-  @Select(AlbumListPhotosState.groupedPhotos) groupedPhotos$!: Observable<Record<string, Photo[]>>;
+  @Select(AlbumListPhotosState.groupedPhotos) groupedPhotos$!: Observable<HashMap<Photo[]>>;
 
   constructor(private store: Store) {}
 

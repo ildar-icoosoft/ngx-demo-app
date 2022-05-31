@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { PageResult } from '../../../../core/types/pagination/page-result';
 import { PageRequest } from '../../../../core/types/pagination/page-request';
-import { Photo } from '../../../../core/types/models/photo';
+import { NormalizedPhotoEntity } from '../../../../core/normalizr/types/models/normalized-photo-entity';
 
 export const photoListPageSize = 36;
 
@@ -13,7 +13,7 @@ export const photoListDefaultPageRequest: PageRequest = {
   },
 };
 
-export interface PhotoListState extends EntityState<Photo> {
+export interface PhotoListState extends EntityState<NormalizedPhotoEntity> {
   totalCount: number;
   pageRequest: PageRequest;
 }
@@ -30,7 +30,7 @@ export class PhotoListStore extends EntityStore<PhotoListState> {
     super(initialState);
   }
 
-  updateList(pageResult: PageResult<Photo>): void {
+  updateList(pageResult: PageResult<NormalizedPhotoEntity>): void {
     const { items, totalCount, pageRequest } = pageResult;
 
     if (pageResult.pageRequest.page?.number === 1) {

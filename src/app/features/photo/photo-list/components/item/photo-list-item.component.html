@@ -4,8 +4,8 @@
   </div>
   <div class="card-footer text-muted">
     {{photo.id}}. {{photo.title}}
-    <div>
-      View Album ({{photo.album?.title}})
+    <div *ngIf="album">
+      View Album ({{album.title}})
     </div>
   </div>
 </div>

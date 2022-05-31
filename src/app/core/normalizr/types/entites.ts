@@ -1,3 +1,5 @@
+import { HashMap } from '../../types/hash-map';
+
 export interface Entities {
-  [entityName: string]: Record<string, unknown>;
+  [entityName: string]: HashMap<unknown>;
 }

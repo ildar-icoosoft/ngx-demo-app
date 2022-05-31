@@ -11,11 +11,12 @@ import { NormalizedPostEntity } from '../../normalizr/types/models/normalized-po
 import { EntityActions } from '../actions/entity.actions';
 import { NormalizedPhotoEntity } from '../../normalizr/types/models/normalized-photo-entity';
 import { PhotoEntitiesState } from './entities/photo-entities.state';
+import { HashMap } from '../../types/hash-map';
 
 export type EntitiesStateModel = {
-  users: Record<string, NormalizedUserEntity>;
-  posts: Record<string, NormalizedPostEntity>;
-  photos: Record<string, NormalizedPhotoEntity>;
+  users: HashMap<NormalizedUserEntity>;
+  posts: HashMap<NormalizedPostEntity>;
+  photos: HashMap<NormalizedPhotoEntity>;
 };
 
 // в generic не указываю EntitiesStateModel, т.к. тогда компилятор ругается на пустой defaults

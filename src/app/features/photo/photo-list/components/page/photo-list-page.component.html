@@ -6,6 +6,7 @@
 
   <app-photo-list
     [photos]="(photos$ | async)!"
+    [albums]="(albumsHashMap$ | async)!"
     [isLastPage]="(isLastPage$ | async)!"
     (loadMore)="loadMore()"
   ></app-photo-list>
