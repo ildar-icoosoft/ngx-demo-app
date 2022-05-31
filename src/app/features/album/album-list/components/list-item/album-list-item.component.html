@@ -8,6 +8,6 @@
     </div>
   </div>
   <div class="card-footer text-muted" *ngIf="album.user">
-    By {{album.user.name}}
+    By <a [routerLink]="['/', 'user', album.user.id]">{{album.user.name}}</a>
   </div>
 </div>
