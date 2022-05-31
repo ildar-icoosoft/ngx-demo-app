@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Breadcrumb } from '../../../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { Observable } from 'rxjs';
-import { PhotosService } from '../../../../../core/akita-store/photos-state/photos.service';
-import { PhotosQuery } from '../../../../../core/akita-store/photos-state/photos.query';
+import { PhotoListService } from '../../akita-state/photo-list.service';
+import { PhotoListQuery } from '../../akita-state/photo-list.query';
+import { photoListDefaultPageRequest } from '../../akita-state/photo-list.store';
 import { NormalizedPhotoEntity } from '../../../../../core/normalizr/types/models/normalized-photo-entity';
-import { photoListDefaultPageRequest } from '../../../../../core/akita-store/photos-state/photos.store';
 
 @Component({
   selector: 'app-photo-list-page',
@@ -24,11 +24,11 @@ export class PhotoListPageComponent implements OnInit {
     },
   ];
 
-  photos$: Observable<NormalizedPhotoEntity[]> = this.photosQuery.selectPhotos();
+  photos$: Observable<NormalizedPhotoEntity[]> = this.photosQuery.selectAll();
 
   isLastPage$: Observable<boolean> = this.photosQuery.isLastPage();
 
-  constructor(private photosService: PhotosService, private photosQuery: PhotosQuery) {}
+  constructor(private photosService: PhotoListService, private photosQuery: PhotoListQuery) {}
 
   ngOnInit(): void {
     this.photosService.getPhotos(photoListDefaultPageRequest);
