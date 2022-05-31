@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { NgEntityService } from '@datorama/akita-ng-entity-service';
 import { PhotoListStore, PhotoListState } from './photo-list.store';
 import { PageRequest } from '../../../../core/types/pagination/page-request';
-import { NormalizedPhotoEntity } from '../../../../core/normalizr/types/models/normalized-photo-entity';
 import { PageResult } from '../../../../core/types/pagination/page-result';
 import { ApiService } from '../../../../core/services/api.service';
+import { combineLatest } from 'rxjs';
+import { Photo } from '../../../../core/types/models/photo';
 
 @Injectable({ providedIn: 'root' })
 export class PhotoListService extends NgEntityService<PhotoListState> {
@@ -13,11 +14,22 @@ export class PhotoListService extends NgEntityService<PhotoListState> {
   }
 
   getPhotos(pageRequest: PageRequest): void {
-    this.apiService
-      .getPhotos(pageRequest)
-      .subscribe((result: PageResult<NormalizedPhotoEntity>) => {
-        this.store.updateList(result);
+    combineLatest([
+      this.apiService.getAlbums({}),
+      this.apiService.getPhotos(pageRequest),
+    ]).subscribe(([albumsPageResult, photosPageResult]) => {
+      const albumsMap = new Map();
+      albumsPageResult.items.forEach((album) => albumsMap.set(album.id, album));
+
+      photosPageResult.items.forEach((photo) => {
+        photo.album = albumsMap.get(photo.album);
       });
+
+      // @todo на самом деле это не совсем PageResult<Photo>. У Photo свойство album должно быть типа
+      // Album, а здесь NormalizedAlbumEntity. Но для нашей задачи это никак не мешает, поэтому пока оставим так.
+      // Не хочется создавать из-за этого дополнительные типы
+      this.store.updateList(photosPageResult as unknown as PageResult<Photo>);
+    });
   }
 
   getNextPhotos(): void {
