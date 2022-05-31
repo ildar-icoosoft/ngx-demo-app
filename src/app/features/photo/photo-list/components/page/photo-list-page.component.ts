@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { PhotoListService } from '../../akita-state/photo-list.service';
 import { PhotoListQuery } from '../../akita-state/photo-list.query';
 import { photoListDefaultPageRequest } from '../../akita-state/photo-list.store';
-import { NormalizedPhotoEntity } from '../../../../../core/normalizr/types/models/normalized-photo-entity';
+import { Photo } from '../../../../../core/types/models/photo';
 
 @Component({
   selector: 'app-photo-list-page',
@@ -24,7 +24,7 @@ export class PhotoListPageComponent implements OnInit {
     },
   ];
 
-  photos$: Observable<NormalizedPhotoEntity[]> = this.photosQuery.selectAll();
+  photos$: Observable<Photo[]> = this.photosQuery.selectAll();
 
   isLastPage$: Observable<boolean> = this.photosQuery.isLastPage();
 
