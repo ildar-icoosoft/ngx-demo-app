@@ -16,7 +16,9 @@ export class PhotoListService {
   ) {}
 
   getPhotos(pageRequest: PageRequest): void {
+    this.photoStore.setLoading(true);
     this.apiService.getPhotos(pageRequest).subscribe((pageResult) => {
+      this.photoStore.setLoading(false);
       this.photoStore.updateList(pageResult);
     });
   }

@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
 import { NormalizedPhotoEntity } from '../../../../../core/normalizr/types/models/normalized-photo-entity';
 import { HashMap } from '../../../../../core/types/hash-map';
 import { NormalizedAlbumEntity } from '../../../../../core/normalizr/types/models/normalized-album-entity';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-photo-list',
@@ -16,7 +17,11 @@ export class PhotoListComponent {
 
   @Input() isLastPage = true;
 
+  @Input() loadInProcess = true;
+
   @Output() loadMore = new EventEmitter<void>();
+
+  faSpinner = faSpinner;
 
   trackByPhoto(index: number, item: NormalizedPhotoEntity): number {
     return item.id;

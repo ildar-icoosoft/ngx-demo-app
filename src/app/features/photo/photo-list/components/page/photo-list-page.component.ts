@@ -35,6 +35,8 @@ export class PhotoListPageComponent implements OnInit {
 
   isLastPage$: Observable<boolean> = this.photosQuery.isLastPage();
 
+  loadInProcess$: Observable<boolean> = this.photosQuery.selectLoading();
+
   constructor(
     private photosService: PhotoListService,
     private photosQuery: PhotoListQuery,

@@ -8,6 +8,7 @@
     [photos]="(photos$ | async)!"
     [albums]="(albumsHashMap$ | async)!"
     [isLastPage]="(isLastPage$ | async)!"
+    [loadInProcess]="(loadInProcess$ | async)!"
     (loadMore)="loadMore()"
   ></app-photo-list>
 </div>
