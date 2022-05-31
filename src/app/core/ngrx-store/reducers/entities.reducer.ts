@@ -3,12 +3,13 @@ import { NormalizedUserEntity } from '../../normalizr/types/models/normalized-us
 import { NormalizedPostEntity } from '../../normalizr/types/models/normalized-post-entity';
 import { Action } from '@ngrx/store';
 import { EntityAction } from '../actions/entity.actions';
+import { HashMap } from '../../types/hash-map';
 
 export const entitiesFeatureKey = 'entities';
 
 export interface EntitiesState {
-  users: Record<string, NormalizedUserEntity>;
-  posts: Record<string, NormalizedPostEntity>;
+  users: HashMap<NormalizedUserEntity>;
+  posts: HashMap<NormalizedPostEntity>;
 }
 
 export const initialState: EntitiesState = {

@@ -1,39 +1,28 @@
 import { Injectable } from '@angular/core';
-import { NgEntityService } from '@datorama/akita-ng-entity-service';
 import { PhotoListStore, PhotoListState } from './photo-list.store';
-import { PageRequest } from '../../../../core/types/pagination/page-request';
-import { PageResult } from '../../../../core/types/pagination/page-result';
+import {
+  PageRequest,
+  PageRequestFilterField,
+} from '../../../../core/types/pagination/page-request';
 import { ApiService } from '../../../../core/services/api.service';
-import { combineLatest } from 'rxjs';
-import { Photo } from '../../../../core/types/models/photo';
+import { PhotoListAlbumsStore } from './photo-list-albums.store';
 
 @Injectable({ providedIn: 'root' })
-export class PhotoListService extends NgEntityService<PhotoListState> {
-  constructor(protected override store: PhotoListStore, private apiService: ApiService) {
-    super(store);
-  }
+export class PhotoListService {
+  constructor(
+    private photoStore: PhotoListStore,
+    private albumsStore: PhotoListAlbumsStore,
+    private apiService: ApiService,
+  ) {}
 
   getPhotos(pageRequest: PageRequest): void {
-    combineLatest([
-      this.apiService.getAlbums({}),
-      this.apiService.getPhotos(pageRequest),
-    ]).subscribe(([albumsPageResult, photosPageResult]) => {
-      const albumsMap = new Map();
-      albumsPageResult.items.forEach((album) => albumsMap.set(album.id, album));
-
-      photosPageResult.items.forEach((photo) => {
-        photo.album = albumsMap.get(photo.album);
-      });
-
-      // @todo на самом деле это не совсем PageResult<Photo>. У Photo свойство album должно быть типа
-      // Album, а здесь NormalizedAlbumEntity. Но для нашей задачи это никак не мешает, поэтому пока оставим так.
-      // Не хочется создавать из-за этого дополнительные типы
-      this.store.updateList(photosPageResult as unknown as PageResult<Photo>);
+    this.apiService.getPhotos(pageRequest).subscribe((pageResult) => {
+      this.photoStore.updateList(pageResult);
     });
   }
 
   getNextPhotos(): void {
-    const state: PhotoListState = this.store.getValue();
+    const state: PhotoListState = this.photoStore.getValue();
 
     const currentPageRequest: PageRequest = state.pageRequest;
 
@@ -43,6 +32,27 @@ export class PhotoListService extends NgEntityService<PhotoListState> {
         number: currentPageRequest.page!.number + 1,
         size: currentPageRequest.page!.size,
       },
+    });
+  }
+
+  getAlbums(pageRequest: PageRequest): void {
+    this.apiService.getAlbums(pageRequest).subscribe((pageResult) => {
+      this.albumsStore.set(pageResult.items);
+    });
+  }
+
+  updateFilter(filter: PageRequestFilterField[]): void {
+    const state: PhotoListState = this.photoStore.getValue();
+
+    const currentPageRequest: PageRequest = state.pageRequest;
+
+    this.getPhotos({
+      ...currentPageRequest,
+      page: {
+        number: 1,
+        size: currentPageRequest.page!.size,
+      },
+      filter,
     });
   }
 }

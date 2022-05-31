@@ -16,7 +16,6 @@ import { AlbumEntitiesState } from './ngxs-store/state/entities/album-entities.s
 import { UserEntitiesState } from './ngxs-store/state/entities/user-entities.state';
 import { NgxsActionsExecutingModule } from '@ngxs-labs/actions-executing';
 import { PhotoEntitiesState } from './ngxs-store/state/entities/photo-entities.state';
-import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -47,12 +46,6 @@ if (environment.production) {
     StoreModule.forRoot<State>(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument({ name: 'NgRx demo' }) : [],
     EffectsModule.forRoot([EntityEffects, CurrentActionEffects, PostEffects, UserEffects]),
-  ],
-  providers: [
-    {
-      provide: NG_ENTITY_SERVICE_CONFIG,
-      useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' },
-    },
   ],
 })
 export class CoreModule {}

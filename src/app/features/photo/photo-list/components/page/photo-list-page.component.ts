@@ -4,7 +4,10 @@ import { Observable } from 'rxjs';
 import { PhotoListService } from '../../akita-state/photo-list.service';
 import { PhotoListQuery } from '../../akita-state/photo-list.query';
 import { photoListDefaultPageRequest } from '../../akita-state/photo-list.store';
-import { Photo } from '../../../../../core/types/models/photo';
+import { NormalizedPhotoEntity } from '../../../../../core/normalizr/types/models/normalized-photo-entity';
+import { NormalizedAlbumEntity } from '../../../../../core/normalizr/types/models/normalized-album-entity';
+import { HashMap } from '../../../../../core/types/hash-map';
+import { PhotoListAlbumsQuery } from '../../akita-state/photo-list-albums.query';
 
 @Component({
   selector: 'app-photo-list-page',
@@ -24,14 +27,23 @@ export class PhotoListPageComponent implements OnInit {
     },
   ];
 
-  photos$: Observable<Photo[]> = this.photosQuery.selectAll();
+  photos$: Observable<NormalizedPhotoEntity[]> = this.photosQuery.selectAll();
+
+  albumsHashMap$: Observable<HashMap<NormalizedAlbumEntity>> = this.albumsQuery.selectAll({
+    asObject: true,
+  });
 
   isLastPage$: Observable<boolean> = this.photosQuery.isLastPage();
 
-  constructor(private photosService: PhotoListService, private photosQuery: PhotoListQuery) {}
+  constructor(
+    private photosService: PhotoListService,
+    private photosQuery: PhotoListQuery,
+    private albumsQuery: PhotoListAlbumsQuery,
+  ) {}
 
   ngOnInit(): void {
     this.photosService.getPhotos(photoListDefaultPageRequest);
+    this.photosService.getAlbums({});
   }
 
   loadMore(): void {

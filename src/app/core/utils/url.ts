@@ -1,12 +1,13 @@
 import { HttpParams } from '@angular/common/http';
 import { PageRequest } from '../types/pagination/page-request';
+import { HashMap } from '../types/hash-map';
 
 /**
  * Формирует объект запроса списка элементов из бэкэнд сервиса jsonplaceholder typicode
  * @param pageRequest
  */
-export const buildQueryParamsForPageRequest = (pageRequest: PageRequest): Record<string, any> => {
-  const queryParams: Record<string, any> = {};
+export const buildQueryParamsForPageRequest = (pageRequest: PageRequest): HashMap<any> => {
+  const queryParams: HashMap<any> = {};
   if (pageRequest.page) {
     queryParams['_page'] = pageRequest.page.number;
     queryParams['_limit'] = pageRequest.page.size;
@@ -31,7 +32,7 @@ export const buildQueryParamsForPageRequest = (pageRequest: PageRequest): Record
  * @param pageRequest
  */
 export const pageRequestToString = (pageRequest: PageRequest): string => {
-  const queryParams: Record<string, any> = buildQueryParamsForPageRequest(pageRequest);
+  const queryParams: HashMap<any> = buildQueryParamsForPageRequest(pageRequest);
 
   let httpParams = new HttpParams({ fromObject: queryParams });
   return httpParams.toString();

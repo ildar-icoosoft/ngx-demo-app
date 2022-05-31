@@ -9,6 +9,7 @@ import {
 import { Photo } from '../../../../core/types/models/photo';
 import { photoSchema } from '../../../../core/normalizr/schemas/photo-schema';
 import { denormalize } from 'normalizr';
+import { HashMap } from '../../../../core/types/hash-map';
 
 export interface AlbumListPhotosStateModel {
   [albumId: string]: number[];
@@ -49,8 +50,8 @@ export class AlbumListPhotosState {
   static groupedPhotos(
     state: AlbumListPhotosStateModel,
     entities: EntitiesStateModel,
-  ): Record<string, Photo[]> {
-    const res: Record<string, Photo[]> = {};
+  ): HashMap<Photo[]> {
+    const res: HashMap<Photo[]> = {};
     for (let albumId in state) {
       res[albumId] = denormalize(state[albumId], [photoSchema], entities).filter(
         (item: Photo) => !!item,

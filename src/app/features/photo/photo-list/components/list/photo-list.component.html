@@ -2,5 +2,6 @@
   <app-photo-list-item
     *ngFor="let photo of photos; trackBy: trackByPhoto"
     [photo]="photo"
+    [album]="albums[photo.album]"
   ></app-photo-list-item>
 </div>
