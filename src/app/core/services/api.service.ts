@@ -48,6 +48,10 @@ export class ApiService {
       );
   }
 
+  getUser(userId: number): Observable<User> {
+    return this.http.get<any>(`https://jsonplaceholder.typicode.com/users/${userId}`);
+  }
+
   getAlbums(pageRequest: PageRequest): Observable<PageResult<NormalizedAlbumEntity>> {
     return this.http
       .get<any>('https://jsonplaceholder.typicode.com/albums?' + pageRequestToString(pageRequest), {

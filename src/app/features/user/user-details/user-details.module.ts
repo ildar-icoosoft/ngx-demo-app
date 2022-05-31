@@ -6,6 +6,7 @@ import { UserDetailsPageComponent } from './components/user-details-page/user-de
 import { UserDetailsHeaderComponent } from './components/user-details-header/user-details-header.component';
 import { UserAlbumsComponent } from './components/user-albums/user-albums.component';
 import { UserPostsComponent } from './components/user-posts/user-posts.component';
+import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,6 @@ import { UserPostsComponent } from './components/user-posts/user-posts.component
     UserAlbumsComponent,
     UserPostsComponent,
   ],
-  imports: [CommonModule, UserDetailsRoutingModule],
+  imports: [CommonModule, UserDetailsRoutingModule, SharedModule],
 })
 export class UserDetailsModule {}
