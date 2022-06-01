@@ -1,0 +1,4 @@
+<div class="dashboard-photo-item" *ngIf="photo">
+  <img [src]="photo.thumbnailUrl" alt="" [title]="photo.title">
+  <div class="text-truncate" [title]="photo.title">{{photo.title}}</div>
+</div>

@@ -8,6 +8,8 @@ import { NormalizedPostEntity } from '../../../core/normalizr/types/models/norma
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostListComponent {
+  @Input() title = 'Posts';
+
   @Input() posts: NormalizedPostEntity[] = [];
 
   @Input() isLoading = true;

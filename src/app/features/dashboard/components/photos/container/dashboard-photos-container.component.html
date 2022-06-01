@@ -1,0 +1,4 @@
+<app-dashboard-photos
+  [photos]="(photos$ | async)!"
+  [isLoading]="!!(loadInProcess$ | async)"
+></app-dashboard-photos>

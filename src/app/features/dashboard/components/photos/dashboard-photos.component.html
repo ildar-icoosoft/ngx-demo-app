@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-header">
+    Recent Photos
+  </div>
+  <div class="card-body">
+    <app-content-loading-status
+      [isEmpty]="!photos.length"
+      [isLoading]="isLoading"
+    ></app-content-loading-status>
+
+    <div class="dashboard-photo-list d-flex flex-wrap">
+      <app-dashboard-photos-item
+        *ngFor="let photo of photos; trackBy: trackByPhoto"
+        [photo]="photo"
+      ></app-dashboard-photos-item>
+    </div>
+  </div>
+</div>

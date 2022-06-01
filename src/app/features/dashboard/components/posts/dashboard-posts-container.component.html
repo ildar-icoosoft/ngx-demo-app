@@ -1,0 +1,5 @@
+<app-post-list
+  title="Latest posts"
+  [posts]="(posts$ | async)!"
+  [isLoading]="!!(loadInProcess$ | async)"
+></app-post-list>
