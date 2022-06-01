@@ -6,7 +6,6 @@ import { select, Store } from '@ngrx/store';
 import { State } from '../../../../../../core/ngrx-store/reducers';
 import { PageRequestFilterField } from '../../../../../../core/types/pagination/page-request';
 import * as postActions from '../../../../../../core/ngrx-store/actions/post.actions';
-import { postListPageSize } from '../../../ngrx-store/post-list.reducer';
 
 @Component({
   selector: 'app-post-list-filter-container',
@@ -26,7 +25,7 @@ export class PostListFilterContainerComponent {
         ...currentListRequest,
         page: {
           number: 1,
-          size: postListPageSize,
+          size: currentListRequest.page!.size,
         },
         filter,
       }),

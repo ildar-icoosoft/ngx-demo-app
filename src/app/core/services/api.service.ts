@@ -7,8 +7,8 @@ import { prepareAlbum, preparePhoto, preparePost } from '../utils/prepare-data';
 import { pageRequestToString } from '../utils/url';
 import { NormalizedAlbumEntity } from '../normalizr/types/models/normalized-album-entity';
 import { NormalizedPostEntity } from '../normalizr/types/models/normalized-post-entity';
-import { User } from '../types/models/user';
 import { NormalizedPhotoEntity } from '../normalizr/types/models/normalized-photo-entity';
+import { NormalizedUserEntity } from '../normalizr/types/models/normalized-user-entity';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,7 @@ export class ApiService {
       .pipe(map((post) => preparePost(post)));
   }
 
-  getUsers(pageRequest: PageRequest): Observable<PageResult<User>> {
+  getUsers(pageRequest: PageRequest): Observable<PageResult<NormalizedUserEntity>> {
     return this.http
       .get<any>('https://jsonplaceholder.typicode.com/users' + pageRequestToString(pageRequest), {
         observe: 'response',
@@ -54,7 +54,7 @@ export class ApiService {
       );
   }
 
-  getUser(userId: number): Observable<User> {
+  getUser(userId: number): Observable<NormalizedUserEntity> {
     return this.http.get<any>(`https://jsonplaceholder.typicode.com/users/${userId}`);
   }
 
@@ -72,6 +72,12 @@ export class ApiService {
           };
         }),
       );
+  }
+
+  getSingleAlbum(id: number): Observable<NormalizedAlbumEntity> {
+    return this.http
+      .get<any>(`https://jsonplaceholder.typicode.com/albums/${id}`)
+      .pipe(map((post) => prepareAlbum(post)));
   }
 
   getPhotos(pageRequest: PageRequest): Observable<PageResult<NormalizedPhotoEntity>> {

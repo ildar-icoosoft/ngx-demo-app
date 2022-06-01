@@ -32,14 +32,16 @@ const routes: Routes = [
       {
         path: 'album/:id',
         loadChildren: () =>
-          import('./features/album/album-details/album-details.module').then(
-            (m) => m.AlbumDetailsModule,
+          import('./features/photo/photo-list/album-photos/album-photos.module').then(
+            (m) => m.AlbumPhotosModule,
           ),
       },
       {
         path: 'photos',
         loadChildren: () =>
-          import('./features/photo/photo-list/photo-list.module').then((m) => m.PhotoListModule),
+          import('./features/photo/photo-list/all-photos/all-photos.module').then(
+            (m) => m.AllPhotosModule,
+          ),
       },
       {
         path: 'photo/:id',

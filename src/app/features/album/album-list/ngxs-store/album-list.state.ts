@@ -8,25 +8,15 @@ import {
 } from '../../../../core/ngxs-store/state/entities.state';
 import { Album } from '../../../../core/types/models/album';
 import { PageResult } from '../../../../core/types/pagination/page-result';
-import { PageRequest } from '../../../../core/types/pagination/page-request';
 import { AlbumActions } from '../../../../core/ngxs-store/actions/album.actions';
 import { PhotoActions } from '../../../../core/ngxs-store/actions/photo.actions';
 
 export type AlbumListStateModel = PageResult<number>;
 
-export const albumListPageSize = 28;
-
-export const albumListDefaultPageRequest: PageRequest = {
-  page: {
-    number: 1,
-    size: albumListPageSize,
-  },
-};
-
 @State<AlbumListStateModel>({
   name: 'albumList',
   defaults: {
-    pageRequest: albumListDefaultPageRequest,
+    pageRequest: {},
     totalCount: 0,
     items: [],
   },

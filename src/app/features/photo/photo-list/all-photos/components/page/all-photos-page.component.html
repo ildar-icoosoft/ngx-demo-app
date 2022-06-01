@@ -1,0 +1,14 @@
+<div class="container pt-3">
+  <app-breadcrumbs [items]="breadcrumbs"></app-breadcrumbs>
+  <h2>Photos</h2>
+
+  <app-all-photos-filter-container class="d-block mb-2"></app-all-photos-filter-container>
+
+  <app-photo-list
+    [photos]="(photos$ | async)!"
+    [albums]="(albumsHashMap$ | async)!"
+    [isLastPage]="(isLastPage$ | async)!"
+    [loadInProcess]="(loadInProcess$ | async)!"
+    (loadMore)="loadMore()"
+  ></app-photo-list>
+</div>

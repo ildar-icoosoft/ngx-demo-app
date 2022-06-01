@@ -4,15 +4,6 @@ import { PageResult } from '../../../../core/types/pagination/page-result';
 import { PageRequest } from '../../../../core/types/pagination/page-request';
 import { NormalizedPhotoEntity } from '../../../../core/normalizr/types/models/normalized-photo-entity';
 
-export const photoListPageSize = 36;
-
-export const photoListDefaultPageRequest: PageRequest = {
-  page: {
-    number: 1,
-    size: photoListPageSize,
-  },
-};
-
 export interface PhotoListState extends EntityState<NormalizedPhotoEntity> {
   totalCount: number;
   pageRequest: PageRequest;
@@ -20,11 +11,11 @@ export interface PhotoListState extends EntityState<NormalizedPhotoEntity> {
 
 const initialState: PhotoListState = {
   totalCount: 0,
-  pageRequest: photoListDefaultPageRequest,
+  pageRequest: {},
 };
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'photoList' })
+@StoreConfig({ name: 'photo-list' })
 export class PhotoListStore extends EntityStore<PhotoListState> {
   constructor() {
     super(initialState);

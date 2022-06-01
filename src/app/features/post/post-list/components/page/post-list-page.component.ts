@@ -17,7 +17,6 @@ import {
 } from '../../../../../core/types/pagination/page-request';
 import { selectIsActionInProcess } from '../../../../../core/ngrx-store/selectors/current-actions.selectors';
 import { GET_POSTS } from '../../../../../core/ngrx-store/actions/post.actions';
-import { postListDefaultPageRequest } from '../../ngrx-store/post-list.reducer';
 
 @Component({
   selector: 'app-post-list-page',
@@ -48,7 +47,18 @@ export class PostListPageComponent implements OnInit {
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new postActions.GetPosts(postListDefaultPageRequest));
+    this.store.dispatch(
+      new postActions.GetPosts({
+        page: {
+          number: 1,
+          size: 5,
+        },
+        sort: {
+          field: 'id',
+          direction: 'asc',
+        },
+      }),
+    );
     this.store.dispatch(new userActions.GetUsers());
   }
 

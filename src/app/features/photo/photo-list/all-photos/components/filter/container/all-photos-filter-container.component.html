@@ -1,0 +1,4 @@
+<app-all-photos-filter
+  [albums]="(albums$ | async)!"
+  (changeFilter)="changeFilter($event)"
+></app-all-photos-filter>

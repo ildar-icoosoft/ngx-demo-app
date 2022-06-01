@@ -1,0 +1,20 @@
+<div class="container pt-3">
+  <app-breadcrumbs *ngIf="breadcrumbs$ | async as breadcrumbs" [items]="breadcrumbs"></app-breadcrumbs>
+
+  <app-album-photos-title
+    [album]="album$ | async"
+    [albumLoadInProcess]="(albumLoadInProcess$ | async)!"
+    [albumAuthor]="albumAuthor$ | async"
+    [albumAuthorLoadInProcess]="(albumAuthorLoadInProcess$ | async)!"
+  ></app-album-photos-title>
+
+  <app-album-photos-filter-container class="d-block mb-2"></app-album-photos-filter-container>
+
+  <app-photo-list
+    [photos]="(photos$ | async)!"
+    [isLastPage]="(isLastPage$ | async)!"
+    [loadInProcess]="(photosLoadInProcess$ | async)!"
+    [showAlbumLink]="false"
+    (loadMore)="loadMore()"
+  ></app-photo-list>
+</div>

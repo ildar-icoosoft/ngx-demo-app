@@ -1,6 +1,6 @@
 <form class="d-flex" [formGroup]="group">
-  <input formControlName="q" class="form-control" placeholder="Search" class="search-input me-2">
-  <select formControlName="userId" class="form-select" aria-label="User filter" class="user-filter">
+  <input formControlName="q" class="form-control me-2" placeholder="Search">
+  <select formControlName="userId" class="form-select" aria-label="User filter">
     <option [value]="0">Author</option>
     <option [value]="user.id" *ngFor="let user of users; trackBy: trackByUser">{{user.name}}</option>
   </select>
