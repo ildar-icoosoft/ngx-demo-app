@@ -20,6 +20,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { enableAkitaProdMode } from '@datorama/akita';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 if (environment.production) {
   enableAkitaProdMode();
@@ -44,6 +45,7 @@ if (environment.production) {
     AkitaNgRouterStoreModule,
     // Ngrx нужно подключать после Akita, потому что иначе они будут конфликтовать в redux devtools
     StoreModule.forRoot<State>(reducers, { metaReducers }),
+    StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument({ name: 'NgRx demo' }) : [],
     EffectsModule.forRoot([EntityEffects, CurrentActionEffects, PostEffects, UserEffects]),
   ],

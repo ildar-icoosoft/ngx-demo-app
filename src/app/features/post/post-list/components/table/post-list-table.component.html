@@ -19,7 +19,7 @@
     <tr *ngFor="let item of items">
       <th scope="row" class="fw-normal">{{item.id}}</th>
       <td><ng-container *ngIf="item.user"><a [routerLink]="['/', 'user', item.user.id]">{{item.user.name}}</a></ng-container></td>
-      <td>{{item.title}}</td>
+      <td><a [routerLink]="['/', 'post', item.id]">{{item.title}}</a></td>
       <td>{{item.body}}</td>
     </tr>
     </tbody>

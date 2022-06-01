@@ -11,7 +11,7 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item" *ngFor="let post of posts; trackBy: trackByPost">
       <div class="text-truncate">
-        {{post.title}}
+        <a [routerLink]="['/', 'post', post.id]">{{post.title}}</a>
       </div>
       <div class="text-truncate text-secondary">
         {{post.body}}
