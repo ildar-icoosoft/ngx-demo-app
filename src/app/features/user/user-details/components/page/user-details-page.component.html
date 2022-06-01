@@ -9,10 +9,10 @@
       [albums]="(albums$ | async)!"
       [isLoading]="(albumsPending$ | async)!"
     ></app-user-albums>
-    <app-user-posts
+    <app-post-list
       class="col-12 col-lg-6 mb-3"
       [posts]="(posts$ | async)!"
       [isLoading]="(postsPending$ | async)!"
-    ></app-user-posts>
+    ></app-post-list>
   </div>
 </div>

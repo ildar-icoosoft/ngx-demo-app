@@ -1,13 +1,13 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { NormalizedPostEntity } from '../../../../../core/normalizr/types/models/normalized-post-entity';
+import { NormalizedPostEntity } from '../../../core/normalizr/types/models/normalized-post-entity';
 
 @Component({
-  selector: 'app-user-posts',
-  templateUrl: './user-posts.component.html',
-  styleUrls: ['./user-posts.component.scss'],
+  selector: 'app-post-list',
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserPostsComponent {
+export class PostListComponent {
   @Input() posts: NormalizedPostEntity[] = [];
 
   @Input() isLoading = true;
