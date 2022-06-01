@@ -1,0 +1,7 @@
+.dashboard-photo-list {
+  gap: 10px;
+
+  > * {
+    width: calc(33.33% - 10px * 2 / 3);
+  }
+}

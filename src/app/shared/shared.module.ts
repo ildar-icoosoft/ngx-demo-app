@@ -7,9 +7,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentLoadingStatusComponent } from './components/content-loading-status/content-loading-status.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PostListComponent } from './components/post-list/post-list.component';
 
 @NgModule({
-  declarations: [BreadcrumbsComponent, ContentLoadingStatusComponent],
+  declarations: [BreadcrumbsComponent, ContentLoadingStatusComponent, PostListComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -28,6 +29,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FontAwesomeModule,
     ContentLoadingStatusComponent,
     InfiniteScrollModule,
+    PostListComponent,
   ],
 })
 export class SharedModule {}
