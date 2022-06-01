@@ -1,8 +1,16 @@
 <header class="user-details-header">
   <div class="container pt-5 pb-5 text-white">
-    <h2 class="mb-3">Some Username</h2>
-    <div>
-      @username &#8212; some@email.com &#8212; website.com &#8212; company name &#8212; city
+    <div class="text-center" *ngIf="isLoading">
+      <fa-icon [icon]="faSpinner" [pulse]="true" role="status" data-testid="loading-spinner">
+        <span class="sr-only">Loading...</span>
+      </fa-icon>
     </div>
+
+    <ng-container *ngIf="user">
+      <h2 class="mb-3">{{user.name}}</h2>
+      <div>
+        @{{user.username}} &#8212; {{user.email}} &#8212; {{user.website}} &#8212; {{user.company.name}} &#8212; {{user.address.city}}
+      </div>
+    </ng-container>
   </div>
 </header>

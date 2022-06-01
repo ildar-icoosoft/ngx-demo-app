@@ -1,4 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { User } from '../../../../../core/types/models/user';
 
 @Component({
   selector: 'app-user-details-header',
@@ -6,4 +8,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./user-details-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDetailsHeaderComponent {}
+export class UserDetailsHeaderComponent {
+  @Input() user: User | null = null;
+
+  @Input() isLoading = true;
+
+  faSpinner = faSpinner;
+}

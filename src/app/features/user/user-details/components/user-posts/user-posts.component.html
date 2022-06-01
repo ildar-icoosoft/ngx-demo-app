@@ -2,23 +2,19 @@
   <div class="card-header">
     Posts
   </div>
+
+  <app-content-loading-status
+    [isEmpty]="!posts.length"
+    [isLoading]="isLoading"
+  ></app-content-loading-status>
+
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      Cras justo odio
-      <div class="text-truncate text-secondary">
-        Praeterea iter est quasdam res quas ex communi.
+    <li class="list-group-item" *ngFor="let post of posts; trackBy: trackByPost">
+      <div class="text-truncate">
+        {{post.title}}
       </div>
-    </li>
-    <li class="list-group-item">
-      Cras justo odio
       <div class="text-truncate text-secondary">
-        Praeterea iter est quasdam res quas ex communi.
-      </div>
-    </li>
-    <li class="list-group-item">
-      Vestibulum at eros
-      <div class="text-truncate text-secondary">
-        Praeterea iter est quasdam res quas ex communi.
+        {{post.body}}
       </div>
     </li>
   </ul>
