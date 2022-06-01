@@ -42,6 +42,7 @@
     "@ngrx/store": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
     "@ngxs-labs/actions-executing": "^0.1.9",
+    "@ngxs-labs/immer-adapter": "^3.0.5",
     "@ngxs/store": "^3.7.3",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.1.3",

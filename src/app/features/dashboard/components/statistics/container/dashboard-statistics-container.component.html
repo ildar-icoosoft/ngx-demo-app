@@ -1,0 +1,6 @@
+<app-dashboard-statistics
+  [totalPostsCount]="(totalPostsCount$ | async)!"
+  [totalAlbumsCount]="(totalAlbumsCount$ | async)!"
+  [totalPhotosCount]="(totalPhotosCount$ | async)!"
+  [isLoading]="!!(isStatisticsLoading$ | async)"
+></app-dashboard-statistics>
