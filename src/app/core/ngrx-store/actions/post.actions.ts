@@ -34,4 +34,37 @@ export class GetPostsFailed implements Action {
   constructor(public error: any) {}
 }
 
-export type PostAction = GetPosts | GetPostsSuccess | GetPostsFailed;
+/* GetSinglePost */
+export const GET_SINGLE_POST = '[Post] GetSinglePost';
+export const GET_SINGLE_POST_SUCCESS = '[Post] GetSinglePostSuccess';
+export const GET_SINGLE_POST_FAILED = '[Post] GetSinglePostFailed';
+
+@StartOfAction()
+export class GetSinglePost implements Action {
+  readonly type = GET_SINGLE_POST;
+
+  constructor(public id: number) {}
+}
+
+@EndOfAction(GET_SINGLE_POST)
+@ReturnsNormalizedData()
+export class GetSinglePostSuccess implements ActionWithNormalizedData {
+  readonly type = GET_SINGLE_POST_SUCCESS;
+
+  constructor(public data: NormalizedData<number>) {}
+}
+
+@EndOfAction(GET_SINGLE_POST)
+export class GetSinglePostFailed implements Action {
+  readonly type = GET_SINGLE_POST_FAILED;
+
+  constructor(public error: any) {}
+}
+
+export type PostAction =
+  | GetPosts
+  | GetPostsSuccess
+  | GetPostsFailed
+  | GetSinglePost
+  | GetSinglePostSuccess
+  | GetSinglePostFailed;

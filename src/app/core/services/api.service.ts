@@ -32,6 +32,12 @@ export class ApiService {
       );
   }
 
+  getSinglePost(id: number): Observable<NormalizedPostEntity> {
+    return this.http
+      .get<any>(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .pipe(map((post) => preparePost(post)));
+  }
+
   getUsers(pageRequest: PageRequest): Observable<PageResult<User>> {
     return this.http
       .get<any>('https://jsonplaceholder.typicode.com/users' + pageRequestToString(pageRequest), {
