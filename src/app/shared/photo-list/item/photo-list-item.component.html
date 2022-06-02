@@ -1,13 +1,13 @@
 <div class="card text-center" *ngIf="photo">
   <div class="card-body">
-    <img [src]="photo.thumbnailUrl" alt="">
+    <a [routerLink]="['/', 'photo', photo.id]"><img [src]="photo.thumbnailUrl" alt="" title="Click to view photo"></a>
   </div>
   <div class="card-footer">
-    <div class="text-muted mb-2">
-      {{photo.id}}. {{photo.title}}
+    <div class="mb-2">
+      View photo <a [routerLink]="['/', 'photo', photo.id]">{{photo.title}}</a>
     </div>
     <div *ngIf="showAlbumLink && album">
-      <a [routerLink]="['/', 'album', album.id]">View Album ({{album.title}})</a>
+      View Album <a [routerLink]="['/', 'album', album.id]">{{album.title}}</a>
     </div>
   </div>
 </div>

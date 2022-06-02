@@ -95,4 +95,10 @@ export class ApiService {
         }),
       );
   }
+
+  getSinglePhoto(id: number): Observable<NormalizedPhotoEntity> {
+    return this.http
+      .get<any>(`https://jsonplaceholder.typicode.com/photos/${id}`)
+      .pipe(map((post) => preparePhoto(post)));
+  }
 }

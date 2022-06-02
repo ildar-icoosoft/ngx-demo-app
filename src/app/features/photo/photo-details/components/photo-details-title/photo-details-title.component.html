@@ -1,0 +1,6 @@
+<h2 *ngIf="photo">
+  {{photo.title}}
+</h2>
+<div *ngIf="album" class="mb-2">
+  View Album <a [routerLink]="['/', 'album', album.id]">{{album.title}}</a>
+</div>

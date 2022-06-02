@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PhotoDetailsComponent } from './photo-details.component';
+import { PhotoDetailsPageComponent } from './components/photo-details-page/photo-details-page.component';
 
-const routes: Routes = [{ path: '', component: PhotoDetailsComponent }];
+const routes: Routes = [{ path: '', component: PhotoDetailsPageComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
