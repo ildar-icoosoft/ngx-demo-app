@@ -4,7 +4,9 @@
   </div>
   <div class="card-body">
     <div class="album-photos d-flex">
-      <img *ngFor="let photo of photos; trackBy: trackByPhoto" [src]="photo.thumbnailUrl" [alt]="photo.title">
+      <a [routerLink]="['/', 'photo', photo.id]" *ngFor="let photo of photos; trackBy: trackByPhoto">
+        <img [src]="photo.thumbnailUrl" [alt]="photo.title">
+      </a>
     </div>
   </div>
   <div class="card-footer text-muted" *ngIf="album.user">
