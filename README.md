@@ -1,27 +1,90 @@
-# NgxDemoApp
+<h1 align="center">Ngx Demo App</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.6.
+<p align="center">
+  <img alt="CI" src="https://github.com/ildar-icoosoft/ngx-demo-app/workflows/CI/badge.svg">
 
-## Development server
+  <a href="https://codecov.io/gh/ildar-icoosoft/ngx-demo-app">
+    <img src="https://codecov.io/gh/ildar-icoosoft/ngx-demo-app/branch/master/graph/badge.svg?token=PWWEME2J5G"/>
+  </a>
+</p>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<h4 align="center">Angular demo application containing typical pages with posts, albums and photos.</h4>
 
-## Code scaffolding
+> ### The goal of the assignment of this application is to demonstrate my software engineering skills, especially around code organization, data structure use, problem-solving, and testing.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Key Features
 
-## Build
+- Latest version of Angular
+- Using four libraries for state management ([NgRx](https://ngrx.io/docs) + [NGXS](https://ngxs.io/) + [Akita](https://opensource.salesforce.com/akita/docs/store) + [Elf](https://ngneat.github.io/elf/))
+- Each page takes a different approach to dealing with state (for example normalization using [normalizr](https://github.com/paularmstrong/normalizr))
+- ESLint for code quality
+- Bootstrap for UI
+- Extreme usage of Type hinting via TypeScript
+- Unit tests (Jest) (coming soon)
+- Automated tests (Cypress) (coming soon)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Getting started
 
-## Running unit tests
+You can view a live demo over at https://example.com
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To get the frontend running locally:
 
-## Running end-to-end tests
+- Clone this repo
+- `npm install` to install all req'd dependencies
+- `npm start` to start the local server (this project uses create-react-app)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Backend API
 
-## Further help
+The app uses these API endpoints to retrieve the data to display on the page.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- https://jsonplaceholder.typicode.com/posts/ to the list of posts.
+- https://jsonplaceholder.typicode.com/posts/1/ to the details of post with ID 1.
+- https://jsonplaceholder.typicode.com/albums/ to get list of albums.
+- https://jsonplaceholder.typicode.com/albums/1/ to get details of album with ID 1.
+- https://jsonplaceholder.typicode.com/photos/ to get list of photos.
+- https://jsonplaceholder.typicode.com/photos/1/ to get details of photo with ID 1.
+- https://jsonplaceholder.typicode.com/users/1/ to get details of user with ID 1.
+
+## Pages
+
+Each page is lazy-loaded, include a loading indicator.
+
+### Dashboard page
+
+The dashboard page shows a summary of each data and a statistics overview.
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/dashboard.png)
+
+### Post list page
+
+A clean list of posts with filtering, sorting, and pagination.
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/post-list.png)
+
+### Post page
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/post-list.png)
+
+### Album list page
+
+A clean list of albums with filtering and infinite scroll.
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/album-list.png)
+
+### Album page
+
+Similar to other list pages, it has search and infinite scroll.
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/album.png)
+
+### Photo list page
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/photo-list.png)
+
+### Photo page
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/photo.png)
+
+### User page
+
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/user.png)
