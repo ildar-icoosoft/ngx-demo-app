@@ -1,0 +1,15 @@
+<div class="container pt-3">
+  <app-content-loading-status
+    [isEmpty]="(photo$ | async) === null"
+    [isLoading]="(photoLoadInProcess$ | async)!"
+  ></app-content-loading-status>
+
+  <app-breadcrumbs *ngIf="breadcrumbs$ | async as breadcrumbs" [items]="breadcrumbs"></app-breadcrumbs>
+
+  <app-photo-details-title
+    [photo]="photo$ | async"
+    [album]="album$ | async"
+  ></app-photo-details-title>
+
+  <img *ngIf="photo$ | async as photo" [src]="photo.url" [alt]="photo.title" [title]="photo.title">
+</div>

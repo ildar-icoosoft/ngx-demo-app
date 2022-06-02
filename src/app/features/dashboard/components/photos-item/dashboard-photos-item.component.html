@@ -1,4 +1,6 @@
 <div class="dashboard-photo-item" *ngIf="photo">
-  <img [src]="photo.thumbnailUrl" alt="" [title]="photo.title">
-  <div class="text-truncate" [title]="photo.title">{{photo.title}}</div>
+  <a [routerLink]="['/', 'photo', photo.id]"><img [src]="photo.thumbnailUrl" alt="" [title]="photo.title"></a>
+  <div class="text-truncate" [title]="photo.title">
+    <a [routerLink]="['/', 'photo', photo.id]">{{photo.title}}</a>
+  </div>
 </div>
