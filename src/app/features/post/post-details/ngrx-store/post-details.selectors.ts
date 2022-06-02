@@ -30,7 +30,7 @@ export const selectSinglePostBreadcrumbs = createSelector(
       },
       {
         link: null,
-        text: post.title,
+        text: post.id + '. ' + post.title,
       },
     ];
   },

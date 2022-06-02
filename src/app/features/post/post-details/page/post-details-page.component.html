@@ -4,10 +4,13 @@
     [isLoading]="(loadInProcess$ | async)!"
   ></app-content-loading-status>
 
-  <ng-container *ngIf="post$ | async as post">
-    <app-breadcrumbs *ngIf="breadcrumbs$ | async as breadcrumbs" [items]="breadcrumbs"></app-breadcrumbs>
-    <h2>{{post.title}} <ng-container *ngIf="post.user">(by {{post.user.name}})</ng-container></h2>
+  <app-breadcrumbs *ngIf="breadcrumbs$ | async as breadcrumbs" [items]="breadcrumbs"></app-breadcrumbs>
 
+  <ng-container *ngIf="post$ | async as post">
+    <h2>{{post.title}}</h2>
+    <div *ngIf="post.user" class="mb-2">
+      By <a [routerLink]="['/', 'user', post.user.id]">{{post.user.name}}</a>
+    </div>
     <div>{{post.body}}</div>
   </ng-container>
 </div>

@@ -1,0 +1,12 @@
+<h2 *ngIf="album && !albumLoadInProcess">
+  {{album.title}}
+</h2>
+<div *ngIf="albumAuthor && !albumAuthorLoadInProcess" class="mb-2">
+  By <a [routerLink]="['/', 'user', albumAuthor.id]">{{albumAuthor.name}}</a>
+</div>
+
+<div *ngIf="albumLoadInProcess || albumAuthorLoadInProcess">
+  <fa-icon [icon]="faSpinner" [pulse]="true" role="status" data-testid="loading-spinner">
+    <span class="sr-only">Loading...</span>
+  </fa-icon>
+</div>

@@ -8,9 +8,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentLoadingStatusComponent } from './components/content-loading-status/content-loading-status.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { PhotoListComponent } from './photo-list/list/photo-list.component';
+import { PhotoListItemComponent } from './photo-list/item/photo-list-item.component';
 
 @NgModule({
-  declarations: [BreadcrumbsComponent, ContentLoadingStatusComponent, PostListComponent],
+  declarations: [
+    BreadcrumbsComponent,
+    ContentLoadingStatusComponent,
+    PostListComponent,
+    PhotoListComponent,
+    PhotoListItemComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -30,6 +38,7 @@ import { PostListComponent } from './components/post-list/post-list.component';
     ContentLoadingStatusComponent,
     InfiniteScrollModule,
     PostListComponent,
+    PhotoListComponent,
   ],
 })
 export class SharedModule {}

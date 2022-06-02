@@ -1,0 +1,21 @@
+<app-content-loading-status
+  [isEmpty]="!photos.length"
+  [isLoading]="loadInProcess"
+></app-content-loading-status>
+
+<div class="photo-list d-flex flex-wrap" infiniteScroll [infiniteScrollDisabled]="isLastPage" (scrolled)="loadMore.emit()">
+  <app-photo-list-item
+    *ngFor="let photo of photos; trackBy: trackByPhoto"
+    [photo]="photo"
+    [album]="albums[photo.album]"
+    [showAlbumLink]="showAlbumLink"
+  ></app-photo-list-item>
+</div>
+
+<!-- Показываем нижний спиннер, когда подгружаются новые элементы бесконечным скроллом.
+ @todo В ngIf не совсем точное условие, т.к. оно будет срабатывать и при запросах на фильтрацию и сортировку, но для демо подойдёт -->
+<div class="text-center" *ngIf="loadInProcess && photos.length">
+  <fa-icon [icon]="faSpinner" [pulse]="true" role="status" data-testid="loading-spinner">
+    <span class="sr-only">Loading...</span>
+  </fa-icon>
+</div>

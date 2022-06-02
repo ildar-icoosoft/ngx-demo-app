@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Breadcrumb } from '../../../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { Select, Store } from '@ngxs/store';
-import { albumListDefaultPageRequest, AlbumListState } from '../../ngxs-store/album-list.state';
+import { AlbumListState } from '../../ngxs-store/album-list.state';
 import { Observable } from 'rxjs';
 import { Album } from '../../../../../core/types/models/album';
 import { PageRequest } from '../../../../../core/types/pagination/page-request';
@@ -42,7 +42,14 @@ export class AlbumListPageComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new AlbumActions.GetAlbums(albumListDefaultPageRequest));
+    this.store.dispatch(
+      new AlbumActions.GetAlbums({
+        page: {
+          number: 1,
+          size: 28,
+        },
+      }),
+    );
     this.store.dispatch(new UserActions.GetUsers({}));
   }
 

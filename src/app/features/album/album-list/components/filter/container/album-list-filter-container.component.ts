@@ -7,7 +7,7 @@ import {
 } from '../../../../../../core/types/pagination/page-request';
 import { Select, Store } from '@ngxs/store';
 import { UserListState } from '../../../ngxs-store/user-list.state';
-import { albumListPageSize, AlbumListState } from '../../../ngxs-store/album-list.state';
+import { AlbumListState } from '../../../ngxs-store/album-list.state';
 import { AlbumActions } from '../../../../../../core/ngxs-store/actions/album.actions';
 
 @Component({
@@ -29,7 +29,7 @@ export class AlbumListFilterContainerComponent {
         ...currentListRequest,
         page: {
           number: 1,
-          size: albumListPageSize,
+          size: currentListRequest.page!.size,
         },
         filter,
       }),
