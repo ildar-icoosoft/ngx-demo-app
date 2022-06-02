@@ -10,7 +10,7 @@
 
   <ul class="list-group list-group-flush">
     <li class="list-group-item text-truncate" *ngFor="let album of albums; trackBy: trackByAlbum">
-      {{album.title}}
+      <a [routerLink]="['/', 'album', album.id]">{{album.title}}</a>
     </li>
   </ul>
 </div>
