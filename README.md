@@ -25,7 +25,7 @@
 
 ## Getting started
 
-You can view a live demo over at https://example.com
+You can view a live demo over at https://ildar-icoosoft.github.io/ngx-demo-app/
 
 To get the frontend running locally:
 
