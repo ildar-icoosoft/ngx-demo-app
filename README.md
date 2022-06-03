@@ -63,7 +63,7 @@ A clean list of posts with filtering, sorting, and pagination.
 
 ### Post page
 
-![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/post-list.png)
+![screenshot](https://raw.githubusercontent.com/ildar-icoosoft/ngx-demo-app/master/src/assets/screenshots/post.png)
 
 ### Album list page
 
