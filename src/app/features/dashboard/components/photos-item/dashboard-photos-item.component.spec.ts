@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardPhotosItemComponent } from './dashboard-photos-item.component';
-import { photoSample } from '../../../../data-sample/photo';
+import { photoSample } from '../../../../fixtures/photo';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';

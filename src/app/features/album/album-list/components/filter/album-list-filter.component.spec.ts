@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, DebugElement } from '@angular/core';
 import { AlbumListFilterComponent } from './album-list-filter.component';
 import { By } from '@angular/platform-browser';
-import { userSample1, userSample2 } from '../../../../../data-sample/user';
+import { userSample1, userSample2 } from '../../../../../fixtures/user';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('AlbumListFilter', () => {
