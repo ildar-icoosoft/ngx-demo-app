@@ -20,7 +20,7 @@
 - ESLint for code quality
 - Bootstrap for UI
 - Extreme usage of Type hinting via TypeScript
-- Unit tests (Jest)
+- Unit tests (Jasmine)
 - End-to-End tests (Cypress)
 
 ## Getting started
