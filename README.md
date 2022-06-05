@@ -20,8 +20,8 @@
 - ESLint for code quality
 - Bootstrap for UI
 - Extreme usage of Type hinting via TypeScript
-- Unit tests (Jest) (coming soon)
-- Automated tests (Cypress) (coming soon)
+- Unit tests (Jest)
+- End-to-End tests (Cypress)
 
 ## Getting started
 

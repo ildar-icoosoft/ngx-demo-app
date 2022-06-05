@@ -10,9 +10,9 @@
     </div>
 
     <div class="d-flex justify-content-between" *ngIf="!isLoading">
-      <div><span class="fs-3 fw-bold text-success">{{totalPostsCount | number}}</span> Posts</div>
-      <div><span class="fs-3 fw-bold text-success">{{totalAlbumsCount | number}}</span> Albums</div>
-      <div><span class="fs-3 fw-bold text-success">{{totalPhotosCount | number}}</span> Photos</div>
+      <div aria-label="Posts count"><span class="fs-3 fw-bold text-success">{{totalPostsCount | number}}</span> Posts</div>
+      <div aria-label="Albums count"><span class="fs-3 fw-bold text-success">{{totalAlbumsCount | number}}</span> Albums</div>
+      <div aria-label="Photos count"><span class="fs-3 fw-bold text-success">{{totalPhotosCount | number}}</span> Photos</div>
     </div>
   </div>
 </div>

@@ -10,7 +10,10 @@
     "test:ci": "ng test --browsers=Headless --no-watch",
     "test:coverage": "ng test --browsers=Headless --no-watch --code-coverage",
     "lint": "ng lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -64,6 +67,7 @@
     "@angular-eslint/template-parser": "13.2.1",
     "@angular/cli": "~13.3.6",
     "@angular/compiler-cli": "~13.3.0",
+    "@cypress/schematic": "^2.0.0",
     "@datorama/akita-ngdevtools": "^7.0.0",
     "@ngrx/schematics": "^13.2.0",
     "@ngxs/devtools-plugin": "^3.7.3",
@@ -88,7 +92,8 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2",
-    "typescript": "~4.6.2"
+    "typescript": "~4.6.2",
+    "cypress": "latest"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --cache --fix"
